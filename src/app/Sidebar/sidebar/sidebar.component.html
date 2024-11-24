@@ -1,0 +1,23 @@
+
+<nav class="sidebar">
+  <ul class="sidebar-menu">
+    <header>
+      <a >Prontuarios</a>
+    </header>
+    <li *ngFor="let menu of menus">
+      <a [routerLink]="menu.route" class="sidebar-link">{{ menu.title }}</a>
+     
+    </li>
+    <header>
+      <a >Lista</a>
+    </header>
+    <li *ngFor="let menu of menos">
+      <a [routerLink]="menu.route" class="sidebar-link">{{ menu.title }}</a>
+     
+    </li>
+
+  </ul>
+  <div class="d-flex justify-content-center mb-4 btn">
+    <button type="button" class="btn btn-danger" (click)="logout()">Sair</button>
+  </div>
+</nav>

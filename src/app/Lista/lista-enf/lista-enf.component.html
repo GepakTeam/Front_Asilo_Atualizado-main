@@ -1,0 +1,23 @@
+<app-navbar></app-navbar>
+<div class="container-fluid">
+    <table class="table" *ngIf="enfermagem">
+        <thead>
+            <tr class="table">
+                <th scope="col">Nome</th>
+                <th scope="col">Data Nascimento</th>
+                <th scope="col">Data Exame</th>
+                <th scope="col">Mais Informações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="table" *ngFor="let enf of enfermagem">
+                <td class="">{{ enf.nome }}</td>
+                <td class="">{{ enf.dataNascimento }}</td>
+                <!-- <td class="">{{ enf.controleSinaisVitaisHorario }}</td> -->
+                <td class="detalhes">
+                    <button type="button" class="btn btn-info" value="Detalhes" href="./listaCompleta">Detalhes</button>
+                </td>  
+            </tr>
+        </tbody>
+    </table>
+</div>

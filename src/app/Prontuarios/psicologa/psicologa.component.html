@@ -1,0 +1,191 @@
+<app-navbar></app-navbar>
+
+<div class="content">
+  <!-- Mensagem geral de erro -->
+  <div *ngIf="showErrorCard" class="card text-bg-danger error-card">
+    <div class="card-header">Erro</div>
+    <div class="card-body">
+      <h5 class="card-title">Envio Inválido</h5>
+      <p class="card-text">Por favor, preencha todos os campos obrigatórios antes de enviar.</p>
+    </div>
+  </div>
+
+  <!-- Card de Confirmação de Envio -->
+  <div *ngIf="showSuccessCard" class="card text-bg-success success-card">
+    <div class="card-header">Sucesso</div>
+    <div class="card-body">
+      <h5 class="card-title">Envio Bem-Sucedido</h5>
+      <p class="card-text">Os dados foram enviados com sucesso!</p>
+    </div>
+  </div>
+
+  <form class="row g-3" #form="ngForm" (ngSubmit)="ProntPsicologa()">
+    <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+      <mat-tab label="Formulário de Registro">
+        <fieldset class="border p-4">
+          <div class="container mt-2">
+            <div class="row g-3">
+              <h2>Formulário de Registro</h2>
+
+              <!-- Nome -->
+              <div class="col-md-6">
+                <label for="validationCustom01" class="form-label">Nome:</label>
+                <input type="text" class="form-control" name="nome" [(ngModel)]="ProntuarioPsicologo.nome"
+                  #nome="ngModel" required />
+                <div *ngIf="nome.invalid && nome.touched" class="text-danger">O campo Nome é obrigatório.</div>
+              </div>
+
+              <!-- Data Nascimento -->
+              <div class="col-md-6">
+                <label for="validationCustom01" class="form-label">Data Nascimento:</label>
+                <input type="date" class="form-control" name="dataNascimento"
+                  [(ngModel)]="ProntuarioPsicologo.dataNascimento" #dataNascimento="ngModel" required />
+                <div *ngIf="dataNascimento.invalid && dataNascimento.touched" class="text-danger">
+                  O campo Data de Nascimento é obrigatório.
+                </div>
+              </div>
+
+              <!-- RG -->
+              <div class="col-md-4">
+                <label for="validationCustom01" class="form-label">RG:</label>
+                <input type="text" class="form-control" name="rg" [(ngModel)]="ProntuarioPsicologo.rg" #rg="ngModel"
+                  pattern="^\d{9}$" maxlength="9" required />
+                <div *ngIf="rg.invalid && rg.touched" class="text-danger">
+                  O campo RG deve conter exatamente 9 números.
+                </div>
+              </div>
+
+              <!-- CPF -->
+              <div class="col-md-4">
+                <label for="validationCustom01" class="form-label">CPF:</label>
+                <input type="text" class="form-control" name="cpf" [(ngModel)]="ProntuarioPsicologo.cpf" #cpf="ngModel"
+                  pattern="^\d{11}$" maxlength="11" required />
+                <div *ngIf="cpf.invalid && cpf.touched" class="text-danger">
+                  O campo CPF deve conter exatamente 11 números.
+                </div>
+              </div>
+
+              <!-- Responsável Solidário -->
+              <div class="col-md-4">
+                <label for="validationCustom01" class="form-label">Responsável Solidário:</label>
+                <input type="text" class="form-control" name="responsavel" [(ngModel)]="ProntuarioPsicologo.responsavel"
+                  #responsavel="ngModel" required />
+                <div *ngIf="responsavel.invalid && responsavel.touched" class="text-danger">
+                  O campo Responsável Solidário é obrigatório.
+                </div>
+              </div>
+
+              <!-- Endereço -->
+              <div class="col-md-6">
+                <label for="validationCustom01" class="form-label">Endereço:</label>
+                <input type="text" class="form-control" name="endereco" [(ngModel)]="ProntuarioPsicologo.endereco"
+                  #endereco="ngModel" required />
+                <div *ngIf="endereco.invalid && endereco.touched" class="text-danger">
+                  O campo Endereço é obrigatório.
+                </div>
+              </div>
+
+              <!-- Município -->
+              <div class="col-md-6">
+                <label for="validationCustom01" class="form-label">Município:</label>
+                <input type="text" class="form-control" name="municipio" [(ngModel)]="ProntuarioPsicologo.municipio"
+                  #municipio="ngModel" required />
+                <div *ngIf="municipio.invalid && municipio.touched" class="text-danger">
+                  O campo Município é obrigatório.
+                </div>
+              </div>
+
+              <!-- Problemas de Saúde -->
+              <div class="col-md-4">
+                <label for="validationCustom01" class="form-label">Problemas de Saúde:</label>
+                <input type="text" class="form-control" name="saude" [(ngModel)]="ProntuarioPsicologo.saude"
+                  #saude="ngModel" required />
+                <div *ngIf="saude.invalid && saude.touched" class="text-danger">
+                  O campo Problemas de Saúde é obrigatório.
+                </div>
+              </div>
+
+              <!-- Consciente -->
+              <div class="col-md-4">
+                <label for="validationCustom01" class="form-label">Consciente:</label>
+                <div class="form-check">
+                  <input type="radio" class="form-check-input" name="consciente" value="Sim"
+                    [(ngModel)]="ProntuarioPsicologo.consciente" #consciente="ngModel" required />
+                  Sim
+                </div>
+                <div class="form-check">
+                  <input type="radio" class="form-check-input" name="consciente" value="Não"
+                    [(ngModel)]="ProntuarioPsicologo.consciente" #consciente="ngModel" required />
+                  Não
+                </div>
+                <div *ngIf="consciente.invalid && consciente.touched" class="text-danger">
+                  O campo Consciente é obrigatório.
+                </div>
+              </div>
+
+              <!-- Religião -->
+              <div class="col-md-4">
+                <label for="validationCustom01" class="form-label">Religião:</label>
+                <input type="text" class="form-control" name="religiao" [(ngModel)]="ProntuarioPsicologo.religiao"
+                  #religiao="ngModel" required />
+                <div *ngIf="religiao.invalid && religiao.touched" class="text-danger">
+                  O campo Religião é obrigatório.
+                </div>
+              </div>
+
+              <!-- Filho -->
+              <div class="col-md-4">
+                <label for="validationCustom01" class="form-label">Filho:</label>
+                <div class="form-check">
+                  <input type="radio" class="form-check-input" name="filho" value="Sim"
+                    [(ngModel)]="ProntuarioPsicologo.filho" #filho="ngModel" required /> Sim
+                </div>
+                <div class="form-check">
+                  <input type="radio" class="form-check-input" name="filho" value="Não"
+                    [(ngModel)]="ProntuarioPsicologo.filho" #filho="ngModel" required />
+                  Não
+                </div>
+                <div *ngIf="filho.invalid && filho.touched" class="text-danger">O campo Filho é obrigatório.</div>
+              </div>
+
+              <!-- Quantos -->
+              <div class="col-md-4">
+                <label for="" class="form-label">Quantos:</label>
+                <input type="text" class="form-control" name="qntFilho" [(ngModel)]="ProntuarioPsicologo.qntFilho"
+                  #qntFilho="ngModel" required />
+                <div *ngIf="filho.invalid && filho.touched" class="text-danger">O campo Quantos Filhos é obrigatório.
+                </div>
+              </div>
+
+              <!-- Acolhimento -->
+              <div class="col-md-4">
+                <label for="" class="form-label">Acolhimento:</label>
+                <input type="text" class="form-control" name="acolhimento" [(ngModel)]="ProntuarioPsicologo.acolhimento"
+                  #acolhimento="ngModel" required />
+                <div *ngIf="acolhimento.invalid && acolhimento.touched" class="text-danger">
+                  O campo Acolhimento é obrigatório.
+                </div>
+              </div>
+
+              <!-- Histórico -->
+              <div class="col-md-12">
+                <label for="" class="form-label">Histórico de Vida:</label>
+                <textarea name="historico" class="form-control" rows="4" [(ngModel)]="ProntuarioPsicologo.historico"
+                  #historico="ngModel" required></textarea>
+                <div *ngIf="historico.invalid && historico.touched" class="text-danger">
+                  O campo Histórico de Vida é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <button type="submit" class="btn btn-primary">
+                  Enviar
+                </button>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </mat-tab>
+    </mat-tab-group>
+  </form>
+</div>

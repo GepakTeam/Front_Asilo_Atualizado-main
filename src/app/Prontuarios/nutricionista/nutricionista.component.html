@@ -1,0 +1,900 @@
+<app-navbar></app-navbar>
+
+<div class="content">
+  <!-- Mensagem geral de erro -->
+  <div *ngIf="showErrorCard" class="card text-bg-danger error-card">
+    <div class="card-header">Erro</div>
+    <div class="card-body">
+      <h5 class="card-title">Envio Inválido</h5>
+      <p class="card-text">Por favor, preencha todos os campos obrigatórios antes de enviar.</p>
+    </div>
+  </div>
+
+  <!-- Card de Confirmação de Envio -->
+  <div *ngIf="showSuccessCard" class="card text-bg-success success-card">
+    <div class="card-header">Sucesso</div>
+    <div class="card-body">
+      <h5 class="card-title">Envio Bem-Sucedido</h5>
+      <p class="card-text">Os dados foram enviados com sucesso!</p>
+    </div>
+  </div>
+
+  <form #form="ngForm" (ngSubmit)="ProntNutricionista()" class="row g-3">
+    <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+      <mat-tab label="Dados Pessoais">
+        <fieldset class="border p-4">
+          <div class="container mt-2 ">
+            <div class="row g-3">
+              <h4 class=" col-md-12 w-auto">Avaliação Nutricionista</h4>
+
+              <div class="col-md-10">
+                <label>Data Avaliação</label>
+                <input type="date" class="form-control" name="dataAvaliacao"
+                  [(ngModel)]="ProntuarioNutricionista.dataAvaliacao" #dataAvaliacao="ngModel" required />
+
+                <div *ngIf="dataAvaliacao.invalid && dataAvaliacao.touched" class="text-danger">
+                  O campo é obrigatório.
+                </div>
+              </div>
+              
+              <div class="col-md-12">
+                <h5>Dados Pessoais</h5>
+              </div>
+
+              <div class="col-md-6">
+                <label>Nome</label>
+                <input type="text" class="form-control" name="nome" [(ngModel)]="ProntuarioNutricionista.nome"
+                  #nome="ngModel" required />
+
+                <div *ngIf="nome.invalid && nome.touched" class="text-danger">
+                  O campo é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-2">
+                <label>Idade</label>
+                <input type="number" class="form-control" name="idade" [(ngModel)]="ProntuarioNutricionista.idade"
+                  #idade="ngModel" required />
+
+                <div *ngIf="idade.invalid && idade.touched" class="text-danger">
+                  O campo é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <label>Data de Nascimento</label>
+                <input type="date" class="form-control" name="dataNascimento"
+                  [(ngModel)]="ProntuarioNutricionista.dataNascimento" #dataNascimento="ngModel" required />
+
+                <div *ngIf="dataNascimento.invalid && dataNascimento.touched" class="text-danger">
+                  O campo é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <label>Motivo da consulta </label>
+                <textarea cols="10" rows="4" wrap="hard" class="form-control" name="motivoConsulta"
+                  [(ngModel)]="ProntuarioNutricionista.motivoConsulta" #motivoConsulta="ngModel" required></textarea>
+
+                <div *ngIf="motivoConsulta.invalid && motivoConsulta.touched" class="text-danger">
+                  O campo é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <label>Encaminhado por:</label>
+                <input type="text" class="form-control" name="encaminhadoPor"
+                  [(ngModel)]="ProntuarioNutricionista.encaminhadoPor" #encaminhadoPor="ngModel" required />
+
+                <div *ngIf="encaminhadoPor.invalid && encaminhadoPor.touched" class="text-danger">
+                  O campo é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <label>Convênio</label>
+                <input type="text" class="form-control" name="convenio" [(ngModel)]="ProntuarioNutricionista.convenio"
+                  #convenio="ngModel" required />
+
+                <div *ngIf="convenio.invalid && convenio.touched" class="text-danger">
+                  O campo é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <h6 for="celular" class="form-label">Telefone</h6>
+                <input type="text" class="form-control" id="celular" placeholder="(xx) xxxxx-xxxx" maxlength="15"
+                  name="telefone" [(ngModel)]="ProntuarioNutricionista.telefone" #telefone="ngModel" required />
+
+                <div *ngIf="telefone.invalid && telefone.touched" class="text-danger">
+                  O campo é obrigatório.
+                </div>
+              </div>
+              <script>
+                // Adiciona a máscara ao campo de celular
+                document
+                  .getElementById("celular")
+                  .addEventListener("input", function (e) {
+                    var value = e.target.value.replace(/\D/g, "");
+                    var formattedValue = "(" + value.substring(0, 2);
+                    if (value.length > 2) {
+                      formattedValue += ") " + value.substring(2, 5);
+                    }
+                    if (value.length > 6) {
+                      formattedValue += "-" + value.substring(5, 9);
+                    }
+                    e.target.value = formattedValue;
+                  });
+              </script>
+
+              <div class="col-md-6">
+                <label>Endereço</label>
+                <input type="text" class="form-control" name="endereco" [(ngModel)]="ProntuarioNutricionista.endereco"
+                  #endereco="ngModel" required />
+
+                <div *ngIf="telefone.invalid && telefone.touched" class="text-danger">
+                  O campo é obrigatório.
+                </div>
+              </div>
+
+
+            </div>
+          </div>
+        </fieldset>
+      </mat-tab>
+
+      <mat-tab label="Aspectos Sócio - Econômicos">
+        <fieldset class="border p-4">
+          <div class="container mt-2">
+            <div class="row g-3">
+              <h4>Aspectos Sócio - Econômicos</h4>
+              <div class="col-md-6">
+                <label>Escolaridade</label>
+                <input type="text" class="form-control" name="escolaridade"
+                  [(ngModel)]="ProntuarioNutricionista.escolaridade" #escolaridade="ngModel" required />
+                <div *ngIf="escolaridade.invalid && escolaridade.touched" class="text-danger">
+                  O campo é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label>Profissão</label>
+                <input type="text" class="form-control" name="profissao" [(ngModel)]="ProntuarioNutricionista.profissao"
+                  #profissao="ngModel" required />
+                <div *ngIf="profissao.invalid && profissao.touched" class="text-danger">
+                  O campo é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <label>Número de pessoas que moram na casa</label>
+                <input type="number" class="form-control" name="numeroPessoasCasa"
+                  [(ngModel)]="ProntuarioNutricionista.numeroPessoasCasa" #numeroPessoasCasa="ngModel" required />
+                <div *ngIf="numeroPessoasCasa.invalid && numeroPessoasCasa.touched" class="text-danger">
+                  O campo é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <label>N° Adultos</label>
+                <input type="number" class="form-control" name="numeroAdulto"
+                  [(ngModel)]="ProntuarioNutricionista.numeroAdulto" #numeroAdulto="ngModel" required />
+                <div *ngIf="numeroAdulto.invalid && numeroAdulto.touched" class="text-danger">
+                  O campo é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <label>N° Crianças (0 - 14 anos)</label>
+                <input type="number" class="form-control" name="numeroCrianca"
+                  [(ngModel)]="ProntuarioNutricionista.numeroCrianca" #numeroCrianca="ngModel" required />
+                <div *ngIf="numeroCrianca.invalid && numeroCrianca.touched" class="text-danger">
+                  O campo é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <label>Estado Civil</label><br>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="estadoCivil" value="Solteiro"
+                    [(ngModel)]="ProntuarioNutricionista.estadoCivil" #estadoCivil="ngModel" required /> Solteiro
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="estadoCivil" value="Casado"
+                    [(ngModel)]="ProntuarioNutricionista.estadoCivil" #estadoCivil="ngModel" required /> Casado
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="estadoCivil" value="Separado"
+                    [(ngModel)]="ProntuarioNutricionista.estadoCivil" #estadoCivil="ngModel" required /> Separado
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="estadoCivil" value="Divorciado"
+                    [(ngModel)]="ProntuarioNutricionista.estadoCivil" #estadoCivil="ngModel" required /> Divorciado
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="estadoCivil" value="Viúvo"
+                    [(ngModel)]="ProntuarioNutricionista.estadoCivil" #estadoCivil="ngModel" required /> Viúvo
+                </div>
+
+                <div *ngIf="estadoCivil.invalid && estadoCivil.touched" class="text-danger">
+                  O campo é obrigatório.
+                </div>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </mat-tab>
+
+      <mat-tab label="Histórico Clínico">
+        <fieldset class="border p-4">
+          <div class="container mt-2">
+            <div class="row g-3">
+              <h4>Histórico Clínico</h4>
+              <div class="col-md-6">
+                <label>Apresenta algum problema de saúde </label> <br>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="problemaSaude" value="Sim"
+                    [(ngModel)]="ProntuarioNutricionista.problemaSaude" #problemaSaude="ngModel" required />
+                  Sim
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="problemaSaude" value="Não"
+                    [(ngModel)]="ProntuarioNutricionista.problemaSaude" #problemaSaude="ngModel" required />
+                  Não
+                </div>
+                <div *ngIf="problemaSaude.invalid && problemaSaude.touched" class="text-danger">
+                  O campo é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label>Qual</label>
+                <input type="text" class="form-control" name="qualProblemaSaude"
+                  [(ngModel)]="ProntuarioNutricionista.qualProblemaSaude" #qualProblemaSaude="ngModel" required />
+                <div *ngIf="qualProblemaSaude.invalid && qualProblemaSaude.touched" class="text-danger">
+                  O campo é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <label>Diabetes</label><br>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="diabetes" value="Sim"
+                    [(ngModel)]="ProntuarioNutricionista.diabetes" #diabetes="ngModel" required />
+                  Sim
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="diabetes" value="Não"
+                    [(ngModel)]="ProntuarioNutricionista.diabetes" #diabetes="ngModel" required />
+                  Não
+                </div>
+                <div *ngIf="diabetes.invalid && diabetes.touched" class="text-danger">
+                  O campo é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <label>Hipertensão</label><br>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="hipertensao" value="Sim"
+                    [(ngModel)]="ProntuarioNutricionista.hipertensao" #hipertensao="ngModel" required />
+                  Sim
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="hipertensao" value="Não"
+                    [(ngModel)]="ProntuarioNutricionista.hipertensao" #hipertensao="ngModel" required />
+                  Não
+                </div>
+                <div *ngIf="hipertensao.invalid && hipertensao.touched" class="text-danger">
+                  O campo é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <label>Obesidade</label><br>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="obesidade" value="Sim"
+                    [(ngModel)]="ProntuarioNutricionista.obesidade" #obesidade="ngModel" required />
+                  Sim
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="obesidade" value="Não"
+                    [(ngModel)]="ProntuarioNutricionista.obesidade" #obesidade="ngModel" required />
+                  Não
+                </div>
+                <div *ngIf="obesidade.invalid && obesidade.touched" class="text-danger">
+                  O campo é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <label>Dislipidemia</label><br>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="dislipidemia" value="Sim"
+                    [(ngModel)]="ProntuarioNutricionista.dislipidemia" #dislipidemia="ngModel" required />
+                  Sim
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="dislipidemia" value="Não"
+                    [(ngModel)]="ProntuarioNutricionista.dislipidemia" #dislipidemia="ngModel" required />
+                  Não
+                </div>
+                <div *ngIf="dislipidemia.invalid && dislipidemia.touched" class="text-danger">
+                  O campo é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <label>Outros </label>
+                <input type="text" class="form-control" name="outros"
+                  [(ngModel)]="ProntuarioNutricionista.outrosProblemas" #outrosProblemas="ngModel" required />
+                <div *ngIf="outrosProblemas.invalid && outrosProblemas.touched" class="text-danger">
+                  O campo é obrigatório.
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </fieldset>
+      </mat-tab>
+
+      <mat-tab label="Antecedentes familiares">
+        <fieldset class="border p-4">
+          <div class="container mt-2">
+            <div class="row g-3">
+              <h4>Antecedentes familiares</h4>
+              <div class="col-md-3">
+                <label>Diabetes</label><br>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="antecedenteDiabetes" value="Sim"
+                    [(ngModel)]="ProntuarioNutricionista.antecedenteDiabetes" #antecedenteDiabetes="ngModel" required />
+                  Sim
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="antecedenteDiabetes" value="Não"
+                    [(ngModel)]="ProntuarioNutricionista.antecedenteDiabetes" #antecedenteDiabetes="ngModel" required />
+                  Não
+                </div>
+
+                <div *ngIf="antecedenteDiabetes.invalid && antecedenteDiabetes.touched" class="text-danger">
+                  O campo é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <label>Hipertensão</label><br>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="antecedenteHipertensao" value="Sim"
+                    [(ngModel)]="ProntuarioNutricionista.antecedenteHipertensao" #antecedenteHipertensao="ngModel"
+                    required />
+                  Sim
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="antecedenteHipertensao" value="Não"
+                    [(ngModel)]="ProntuarioNutricionista.antecedenteHipertensao" #antecedenteHipertensao="ngModel"
+                    required />
+                  Não
+                </div>
+
+                <div *ngIf="antecedenteHipertensao.invalid && antecedenteHipertensao.touched" class="text-danger">
+                  O campo é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <label>Obesidade</label><br>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="antecedenteObesidade" value="Sim"
+                    [(ngModel)]="ProntuarioNutricionista.antecedenteObesidade" #antecedenteObesidade="ngModel"
+                    required />
+                  Sim
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="antecedenteObesidade" value="Não"
+                    [(ngModel)]="ProntuarioNutricionista.antecedenteObesidade" #antecedenteObesidade="ngModel"
+                    required />
+                  Não
+                </div>
+
+                <div *ngIf="antecedenteObesidade.invalid && antecedenteObesidade.touched" class="text-danger">
+                  O campo é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <label>Dislipidemia</label><br>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="antecedenteDislipidemia" value="Sim"
+                    [(ngModel)]="ProntuarioNutricionista.antecedenteDislipidemia" #antecedenteDislipidemia="ngModel"
+                    required />
+                  Sim
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="antecedenteDislipidemia" value="Não"
+                    [(ngModel)]="ProntuarioNutricionista.antecedenteDislipidemia" #antecedenteDislipidemia="ngModel"
+                    required />
+                  Não
+                </div>
+
+                <div *ngIf="antecedenteDislipidemia.invalid && antecedenteDislipidemia.touched" class="text-danger">
+                  O campo é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <label>Outros </label>
+                <input type="text" class="form-control" name="outrosAntecedentes"
+                  [(ngModel)]="ProntuarioNutricionista.outrosAntecedentes" #outrosAntecedentes="ngModel" required />
+                <div *ngIf="outrosAntecedentes.invalid && outrosAntecedentes.touched" class="text-danger">
+                  O campo é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label>Hábito intestinal </label>
+                <input type="text" class="form-control" name="habitoIntestinal"
+                  [(ngModel)]="ProntuarioNutricionista.habitoIntestinal" #habitoIntestinal="ngModel" required />
+                <div *ngIf="habitoIntestinal.invalid && habitoIntestinal.touched" class="text-danger">
+                  O campo é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label>Características das fezes </label>
+                <input type="text" class="form-control" name="caracteristicaFezes"
+                  [(ngModel)]="ProntuarioNutricionista.caracteristicaFezes" #caracteristicaFezes="ngModel" required />
+
+                <div *ngIf="caracteristicaFezes.invalid && caracteristicaFezes.touched" class="text-danger">
+                  O campo é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label>Hábito urinário</label>
+                <input type="text" class="form-control" name="habitoUrinario"
+                  [(ngModel)]="ProntuarioNutricionista.habitoUrinario" #habitoUrinario="ngModel" required />
+
+                <div *ngIf="habitoUrinario.invalid && habitoUrinario.touched" class="text-danger">
+                  O campo é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label>Horas de sono </label>
+                <input type="number" class="form-control" name="horaSono"
+                  [(ngModel)]="ProntuarioNutricionista.horasSono" #horasSono="ngModel" required />
+
+                <div *ngIf="horasSono.invalid && horasSono.touched" class="text-danger">
+                  O campo é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label>Atividade fisica</label> <br>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="atividadeFisica" value="Sim"
+                    [(ngModel)]="ProntuarioNutricionista.atividadeFisica" #atividadeFisica="ngModel" required />
+                  Sim
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="atividadeFisica" value="Não"
+                    [(ngModel)]="ProntuarioNutricionista.atividadeFisica" #atividadeFisica="ngModel" required />
+                  Não
+                </div>
+
+                <div *ngIf="atividadeFisica.invalid && atividadeFisica.touched" class="text-danger">
+                  O campo é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label>Frequência </label>
+                <input type="text" class="form-control" name="frequenciaAtividadeFisica"
+                  [(ngModel)]="ProntuarioNutricionista.frequenciaAtividadeFisica" #frequenciaAtividadeFisica="ngModel"
+                  required />
+
+                <div *ngIf="frequenciaAtividadeFisica.invalid && frequenciaAtividadeFisica.touched" class="text-danger">
+                  O campo é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <label>Fuma </label> <br>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="fuma" value="Sim"
+                    [(ngModel)]="ProntuarioNutricionista.fuma" #fuma="ngModel" required />
+                  Sim
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="fuma" value="Não"
+                    [(ngModel)]="ProntuarioNutricionista.fuma" #fuma="ngModel" required />
+                  Não
+                </div>
+
+                <div *ngIf="fuma.invalid && fuma.touched" class="text-danger">
+                  O campo é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <label>Quanto </label>
+                <input type="text" class="form-control" name="quantoFuma" value="Sim"
+                  [(ngModel)]="ProntuarioNutricionista.quantoFuma" #quantoFuma="ngModel" required />
+
+                <div *ngIf="quantoFuma.invalid && quantoFuma.touched" class="text-danger">
+                  O campo é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <label>Há quanto tempo </label>
+                <input type="text" class="form-control" name="haQuantoTempo" value="Não"
+                  [(ngModel)]="ProntuarioNutricionista.haQuantoTempoFuma" #haQuantoTempoFuma="ngModel" required />
+
+                <div *ngIf="haQuantoTempoFuma.invalid && haQuantoTempoFuma.touched" class="text-danger">
+                  O campo é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <label>Faz uso de bebida alcoólica </label> <br>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="fazUsoBebidaAlcoolica" value="Sim"
+                    [(ngModel)]="ProntuarioNutricionista.fazUsoBebidaAlcoolica" #fazUsoBebidaAlcoolica="ngModel"
+                    required />
+                  Sim
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="fazUsoBebidaAlcoolica" value="Não"
+                    [(ngModel)]="ProntuarioNutricionista.fazUsoBebidaAlcoolica" #fazUsoBebidaAlcoolica="ngModel"
+                    required />
+                  Não
+                </div>
+
+                <div *ngIf="fazUsoBebidaAlcoolica.invalid && fazUsoBebidaAlcoolica.touched" class="text-danger">
+                  O campo é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <label>Tipo </label>
+                <input type="text" class="form-control" name="tipoBebida"
+                  [(ngModel)]="ProntuarioNutricionista.tipoBebida" #tipoBebida="ngModel" required />
+
+                <div *ngIf="tipoBebida.invalid && tipoBebida.touched" class="text-danger">
+                  O campo é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <label>Há quanto tempo </label>
+                <input type="text" class="form-control" name="haQuantoTempoBebida"
+                  [(ngModel)]="ProntuarioNutricionista.haQuantoTempoBebida" #haQuantoTempoBebida="ngModel" required />
+
+                <div *ngIf="haQuantoTempoBebida.invalid && haQuantoTempoBebida.touched" class="text-danger">
+                  O campo é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label>Faz uso de laxantes </label> <br>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="fazUsoLaxante" value="Sim"
+                    [(ngModel)]="ProntuarioNutricionista.fazUsoLaxante" #fazUsoLaxante="ngModel" required />
+                  Sim
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="fazUsoLaxante" value="Não"
+                    [(ngModel)]="ProntuarioNutricionista.fazUsoLaxante" #fazUsoLaxante="ngModel" required />
+                  Não
+                </div>
+
+                <div *ngIf="fazUsoLaxante.invalid && fazUsoLaxante.touched" class="text-danger">
+                  O campo é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label>Por quanto tempo </label>
+                <input type="text" class="form-control" name="porQuantoTempoLaxante"
+                  [(ngModel)]="ProntuarioNutricionista.porQuantoTempoLaxante" #porQuantoTempoLaxante="ngModel"
+                  required />
+
+                <div *ngIf="porQuantoTempoLaxante.invalid && porQuantoTempoLaxante.touched" class="text-danger">
+                  O campo é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <label>Faz uso de medicamento</label> <br>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="fazUsoMedicamento" value="Sim"
+                    [(ngModel)]="ProntuarioNutricionista.fazUsoMedicamento" #fazUsoMedicamento="ngModel" required />
+                  Sim
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="fazUsoMedicamento" value="Não"
+                    [(ngModel)]="ProntuarioNutricionista.fazUsoMedicamento" #fazUsoMedicamento="ngModel" required />
+                  Não
+                </div>
+
+                <div *ngIf="fazUsoMedicamento.invalid && fazUsoMedicamento.touched" class="text-danger">
+                  O campo é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <label>Há quanto tempo </label>
+                <input type="text" class="form-control" name="haQuantoTempoMedicamento"
+                  [(ngModel)]="ProntuarioNutricionista.haQuantoTempoMedicamento" #haQuantoTempoMedicamento="ngModel"
+                  required />
+
+                <div *ngIf="haQuantoTempoMedicamento.invalid && haQuantoTempoMedicamento.touched" class="text-danger">
+                  O campo é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <label>Quais </label>
+                <input type="text" class="form-control" name="quaisMedicamento"
+                  [(ngModel)]="ProntuarioNutricionista.quaisMedicamentos" #quaisMedicamentos="ngModel" required />
+                <div *ngIf="quaisMedicamentos.invalid && quaisMedicamentos.touched" class="text-danger">
+                  O campo é obrigatório.
+                </div>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </mat-tab>
+
+
+      <mat-tab label="Avaliação Nutricional - Histórico Alimentar">
+        <fieldset class="border p-4">
+          <div class="container mt-2">
+            <div class="row g-3">
+              <h4>Avaliação Nuricional - Histórico Alimentar</h4>
+              <div class="col-md-6">
+                <label>Apresenta intolerância ou aversão alimentar? </label> <br>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="intoleranciaOuAversaoAlimentar" value="Sim"
+                    [(ngModel)]="ProntuarioNutricionista.intoleranciaOuAversaoAlimentar"
+                    #intoleranciaOuAversaoAlimentar="ngModel" required />
+                  Sim
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="intoleranciaOuAversaoAlimentar" value="Não"
+                    [(ngModel)]="ProntuarioNutricionista.intoleranciaOuAversaoAlimentar"
+                    #intoleranciaOuAversaoAlimentar="ngModel" required />
+                  Não
+                </div>
+                <div *ngIf="intoleranciaOuAversaoAlimentar.invalid && intoleranciaOuAversaoAlimentar.touched"
+                  class="text-danger">
+                  O campo é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label>Qual? </label>
+                <input type="text" class="form-control" name="qualIntolerancia"
+                  [(ngModel)]="ProntuarioNutricionista.qualIntolerancia" #qualIntolerancia="ngModel" required />
+                <div *ngIf="qualIntolerancia.invalid && qualIntolerancia.touched" class="text-danger">
+                  O campo é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label>Há quanto tempo </label>
+                <input type="text" class="form-control" name="haQuantoTempoIntolerancia"
+                  [(ngModel)]="ProntuarioNutricionista.haQuantoTempoIntolerancia" #haQuantoTempoIntolerancia="ngModel"
+                  required />
+                <div *ngIf="haQuantoTempoIntolerancia.invalid && haQuantoTempoIntolerancia.touched" class="text-danger">
+                  O campo é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label>Faz ou fez algum controle de alimentação?</label> <br>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="controleAlimentacao" value="Sim"
+                    [(ngModel)]="ProntuarioNutricionista.controleAlimentacao" #controleAlimentacao="ngModel" required />
+                  Sim
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="controleAlimentacao" value="Não"
+                    [(ngModel)]="ProntuarioNutricionista.controleAlimentacao" #controleAlimentacao="ngModel" required />
+                  Não
+                </div>
+                <div *ngIf="controleAlimentacao.invalid && controleAlimentacao.touched" class="text-danger">
+                  O campo é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label>Qual? </label>
+                <input type="text" class="form-control" name="qualIntolerancia"
+                  [(ngModel)]="ProntuarioNutricionista.qualControleAlimentacao" #qualControleAlimentacao="ngModel"
+                  required />
+                <div *ngIf="qualControleAlimentacao.invalid && qualControleAlimentacao.touched" class="text-danger">
+                  O campo é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label>Apresentou alteração de peso? </label> <br>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="alteracaoPeso" value="Sim"
+                    [(ngModel)]="ProntuarioNutricionista.alteracaoPeso" #alteracaoPeso="ngModel" required />
+                  Sim
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="alteracaoPeso" value="Não"
+                    [(ngModel)]="ProntuarioNutricionista.alteracaoPeso" #alteracaoPeso="ngModel" required />
+                  Não
+                </div>
+                <div *ngIf="alteracaoPeso.invalid && alteracaoPeso.touched" class="text-danger">
+                  O campo é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label>Em quanto tempo?</label>
+                <input type="text" class="form-control" name="emQuantoTempo"
+                  [(ngModel)]="ProntuarioNutricionista.emQuantoTempo" #emQuantoTempo="ngModel" required />
+                <div *ngIf="emQuantoTempo.invalid && emQuantoTempo.touched" class="text-danger">
+                  O campo é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label>Consumo de água </label>
+                <input type="text" class="form-control" name="consumoAgua"
+                  [(ngModel)]="ProntuarioNutricionista.consumoAgua" #consumoAgua="ngModel" required />
+                <div *ngIf="consumoAgua.invalid && consumoAgua.touched" class="text-danger">
+                  O campo é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label>Consumo de Café </label>
+                <input type="text" class="form-control" name="consumoCafe"
+                  [(ngModel)]="ProntuarioNutricionista.consumoCafe" #consumoCafe="ngModel" required />
+                <div *ngIf="consumoCafe.invalid && consumoCafe.touched" class="text-danger">
+                  O campo é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label>Consumo mensal de sal</label>
+                <input type="text" class="form-control" name="consumoMensalSal"
+                  [(ngModel)]="ProntuarioNutricionista.consumoMensalSal" #consumoMensalSal="ngModel" required />
+
+                <div *ngIf="consumoMensalSal.invalid && consumoMensalSal.touched" class="text-danger">
+                  O campo é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label>Consumo de açúcar </label>
+                <input type="text" class="form-control" name="consumoAcucar"
+                  [(ngModel)]="ProntuarioNutricionista.consumoAcucar" #consumoAcucar="ngModel" required />
+                <div *ngIf="consumoAcucar.invalid && consumoAcucar.touched" class="text-danger">
+                  O campo é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label>Consumo de óleo/banha </label>
+                <input type="text" class="form-control" name="consumoOleoBanha"
+                  [(ngModel)]="ProntuarioNutricionista.consumoOleoBanha" #consumoOleoBanha="ngModel" required />
+                <div *ngIf="consumoOleoBanha.invalid && consumoOleoBanha.touched" class="text-danger">
+                  O campo é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label>Onde faz as refeições?</label>
+                <input type="text" class="form-control" name="ondeFazRefeicoes"
+                  [(ngModel)]="ProntuarioNutricionista.ondeFazRefeicoes" #ondeFazRefeicoes="ngModel" required />
+                <div *ngIf="ondeFazRefeicoes.invalid && ondeFazRefeicoes.touched" class="text-danger">
+                  O campo é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label>Quem prepara </label>
+                <input type="text" class="form-control" name="quemPreparaRefeicoes"
+                  [(ngModel)]="ProntuarioNutricionista.quemPreparaRefeicoes" #quemPreparaRefeicoes="ngModel" required />
+                <div *ngIf="quemPreparaRefeicoes.invalid && quemPreparaRefeicoes.touched" class="text-danger">
+                  O campo é obrigatório.
+                </div>
+              </div>
+
+              <label>Mastigação</label>
+              <div class="col-md-4">
+                <div class="form-check">
+                  <label>
+                    <input class="form-check-input radio" type="radio" name="velocidadeRefeicao" value="Rápida"
+                      [(ngModel)]="ProntuarioNutricionista.velocidadeRefeicao" #velocidadeRefeicao="ngModel" required />
+                    Rápida
+                  </label>
+                </div>
+                <div class="form-check">
+                  <label>
+                    <input class="form-check-input radio" type="radio" name="velocidadeRefeicao" value="Moderada"
+                      [(ngModel)]="ProntuarioNutricionista.velocidadeRefeicao" #velocidadeRefeicao="ngModel" required />
+                    Moderada
+                  </label>
+                </div>
+                <div class="form-check">
+                  <label>
+                    <input class="form-check-input radio" type="radio" name="velocidadeRefeicao" value="Devagar"
+                      [(ngModel)]="ProntuarioNutricionista.velocidadeRefeicao" #velocidadeRefeicao="ngModel" required />
+                    Devagar
+                  </label>
+                </div>
+                <div *ngIf="velocidadeRefeicao.invalid && velocidadeRefeicao.touched" class="text-danger">
+                  O campo é obrigatório.
+                </div>
+              </div>
+
+              <label>Costuma comer</label>
+              <div class="col-md-6">
+                <div class="form-check">
+                  <label>
+                    <input class="form-check-input radio" type="radio" name="acompanhamentoRefeicao" value="Acompanhado"
+                      [(ngModel)]="ProntuarioNutricionista.acompanhamentoRefeicao" #acompanhamentoRefeicao="ngModel"
+                      required />
+                    Acompanhado
+                  </label>
+                </div>
+                <div class="form-check">
+                  <label>
+                    <input class="form-check-input radio" type="radio" name="acompanhamentoRefeicao" value="Sozinho"
+                      [(ngModel)]="ProntuarioNutricionista.acompanhamentoRefeicao" #acompanhamentoRefeicao="ngModel"
+                      required />
+                    Sozinho
+                  </label>
+                </div>
+                <div *ngIf="acompanhamentoRefeicao.invalid && acompanhamentoRefeicao.touched" class="text-danger">
+                  O campo é obrigatório.
+                </div>
+              </div>
+
+
+              <div class="col-md-6">
+                <label>Preferências </label>
+                <input type="text" class="form-control" name="preferenciasAlimentares"
+                  [(ngModel)]="ProntuarioNutricionista.preferenciasAlimentares" #preferenciasAlimentares="ngModel"
+                  required />
+                <div *ngIf="preferenciasAlimentares.invalid && preferenciasAlimentares.touched" class="text-danger">
+                  O campo é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label>Restrições alimentares (vegetariano, naturalista, etc)</label>
+                <input type="text" class="form-control" name="restricoesAlimentares"
+                  [(ngModel)]="ProntuarioNutricionista.restricoesAlimentares" #restricoesAlimentares="ngModel"
+                  required />
+                <div *ngIf="restricoesAlimentares.invalid && restricoesAlimentares.touched" class="text-danger">
+                  O campo é obrigatório.
+                </div>
+              </div>
+
+
+              <div class="container mt-2">
+                <div class="row g-3">
+                  <div class="btn form-check">
+                    <button type="submit" class="btn btn-primary">
+                      Enviar
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </mat-tab>
+    </mat-tab-group>
+  </form>
+</div>

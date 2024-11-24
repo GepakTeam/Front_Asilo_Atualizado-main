@@ -1,0 +1,1114 @@
+<app-navbar></app-navbar>
+
+<div class="content">
+
+  <!-- Mensagem geral de erro -->
+  <div *ngIf="showErrorCard" class="card text-bg-danger error-card">
+    <div class="card-header">Erro</div>
+    <div class="card-body">
+      <h5 class="card-title">Envio Inválido</h5>
+      <p class="card-text">Por favor, preencha todos os campos obrigatórios antes de enviar.</p>
+    </div>
+  </div>
+
+  <!-- Card de Confirmação de Envio -->
+  <div *ngIf="showSuccessCard" class="card text-bg-success success-card">
+    <div class="card-header">Sucesso</div>
+    <div class="card-body">
+      <h5 class="card-title">Envio Bem-Sucedido</h5>
+      <p class="card-text">Os dados foram enviados com sucesso!</p>
+    </div>
+  </div>
+
+  <form #form="ngForm" (ngSubmit)="ProntEnfermagem()" class="row g-3">
+    <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+      <mat-tab label="Exame fisico">
+        <fieldset class="border p-4">
+          <div class="container mt-2 ">
+            <h4 class="w-auto">Identificação</h4>
+            <div class="row g-3">
+              <div class="col-md-4">
+
+                <label for="inputEmail4" class="form-label"> Nome </label>
+                <input type="text" class="form-control" name="nome" #nome="ngModel" required
+                  [(ngModel)]="ProntuarioEnfermagem.nome" />
+                <div *ngIf="nome.invalid && nome.touched" class="text-danger">O
+                  campo é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <label for="dataNascimento">Data de Nascimento</label>
+                <input type="date" class="form-control" name="dataNascimento" #dataNascimento="ngModel" required
+                  [(ngModel)]="ProntuarioEnfermagem.dataNascimento" />
+                <div *ngIf="dataNascimento.invalid && dataNascimento.touched" class="text-danger">O
+                  campo é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <label>Data do exame</label>
+                <input type="date" class="form-control" name="dataExame" #dataExame="ngModel" required
+                  [(ngModel)]="ProntuarioEnfermagem.dataExame" />
+                <div *ngIf="dataExame.invalid && dataExame.touched" class="text-danger">O
+                  campo é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <h4 class="w-auto">Exame Fisico</h4>
+              </div>
+
+
+              <div class="col-md-6">
+                <h5>Sistema Neurológico - Nível de consciência</h5>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="nivelConciencia" value="Consciente"
+                    #nivelConciencia="ngModel" required [(ngModel)]="ProntuarioEnfermagem.nivelConciencia" />
+                  Consciente
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="nivelConciencia" value="Confuso"
+                    #nivelConciencia="ngModel" required [(ngModel)]="ProntuarioEnfermagem.nivelConciencia" />
+                  Confuso
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="nivelConciencia" value="Orientado"
+                    #nivelConciencia="ngModel" required [(ngModel)]="ProntuarioEnfermagem.nivelConciencia" />
+                  Orientado
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="nivelConciencia" value="Inconsciente"
+                    #nivelConciencia="ngModel" required [(ngModel)]="ProntuarioEnfermagem.nivelConciencia" />
+                  Inconsciente
+                </div>
+                <div *ngIf="nivelConciencia.invalid && nivelConciencia.touched" class="text-danger">O
+                  campo é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <h5>Pupilas</h5>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="pupilasSituacao" value="Isocôricas"
+                    #pupilasSituacao="ngModel" required [(ngModel)]="ProntuarioEnfermagem.pupilasSituacao" />
+                  Isocôricas
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="pupilasSituacao" value="Anisocórica"
+                    #pupilasSituacao="ngModel" required [(ngModel)]="ProntuarioEnfermagem.pupilasSituacao" />
+                  Anisocórica
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="pupilasSituacao" value="Discórica"
+                    #pupilasSituacao="ngModel" required [(ngModel)]="ProntuarioEnfermagem.pupilasSituacao" />
+                  Discórica
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="pupilasSituacao" value="Midríase"
+                    #pupilasSituacao="ngModel" required [(ngModel)]="ProntuarioEnfermagem.pupilasSituacao" />
+                  Midríase
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="pupilasSituacao" value="Miose"
+                    #pupilasSituacao="ngModel" required [(ngModel)]="ProntuarioEnfermagem.pupilasSituacao" />
+                  Miose
+                </div>
+                <div *ngIf="pupilasSituacao.invalid && pupilasSituacao.touched" class="text-danger">O
+                  campo é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <h5>Pupilas</h5>
+                <div class="form-check form-check-inline">
+                  <label for="inputEmail4" class="form-label" style="padding-right: 4px;"> PD </label>
+                  <input type="text" class="form-control" name="pupilaPD" #pupilaPD="ngModel" required
+                    [(ngModel)]="ProntuarioEnfermagem.pupilaPD" />
+                </div>
+                <div *ngIf="pupilaPD.invalid && pupilaPD.touched" class="text-danger">O
+                  campo é obrigatório.
+                </div>
+                <div class="form-check form-check-inline">
+                  <label for="inputEmail4" class="form-label" style="padding-right: 4px;"> PE </label>
+                  <input type="text" class="form-control" name="pupilaPE" #pupilaPE="ngModel" required
+                    [(ngModel)]="ProntuarioEnfermagem.pupilaPE" />
+                </div>
+                <div *ngIf="pupilaPE.invalid && pupilaPE.touched" class="text-danger">O
+                  campo é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <h5>Fotorreação:</h5>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="fotorreacao" value="+" #fotorreacao="ngModel"
+                    required [(ngModel)]="ProntuarioEnfermagem.fotorreacao" /> +
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="fotorreacao" value="-" #fotorreacao="ngModel"
+                    required [(ngModel)]="ProntuarioEnfermagem.fotorreacao" /> -
+                </div>
+                <div *ngIf="fotorreacao.invalid && fotorreacao.touched" class="text-danger">O
+                  campo é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <h5>Sistema Cardiocirculatório</h5>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="sistemaCardioCirculatorio" value="Normotenso"
+                    #sistemaCardioCirculatorio="ngModel" required
+                    [(ngModel)]="ProntuarioEnfermagem.sistemaCardioCirculatorio" /> Normotenso
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="sistemaCardioCirculatorio" value="Hipotenso"
+                    #sistemaCardioCirculatorio="ngModel" required
+                    [(ngModel)]="ProntuarioEnfermagem.sistemaCardioCirculatorio" /> Hipotenso
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="sistemaCardioCirculatorio" value="Hipertenso"
+                    #sistemaCardioCirculatorio="ngModel" required
+                    [(ngModel)]="ProntuarioEnfermagem.sistemaCardioCirculatorio" /> Hipertenso
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="sistemaCardioCirculatorio"
+                    value="Normocárdico" #sistemaCardioCirculatorio="ngModel" required
+                    [(ngModel)]="ProntuarioEnfermagem.sistemaCardioCirculatorio" /> Normocárdico
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="sistemaCardioCirculatorio"
+                    value="Bradicárdico" #sistemaCardioCirculatorio="ngModel" required
+                    [(ngModel)]="ProntuarioEnfermagem.sistemaCardioCirculatorio" /> Bradicárdico
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="sistemaCardioCirculatorio"
+                    value="Taquicárdico" #sistemaCardioCirculatorio="ngModel" required
+                    [(ngModel)]="ProntuarioEnfermagem.sistemaCardioCirculatorio" /> Taquicárdico
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="sistemaCardioCirculatorio" value="Ritmico"
+                    #sistemaCardioCirculatorio="ngModel" required
+                    [(ngModel)]="ProntuarioEnfermagem.sistemaCardioCirculatorio" /> Ritmico
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="sistemaCardioCirculatorio" value="Arritmico"
+                    #sistemaCardioCirculatorio="ngModel" required
+                    [(ngModel)]="ProntuarioEnfermagem.sistemaCardioCirculatorio" /> Arritmico
+                </div>
+                <div *ngIf="sistemaCardioCirculatorio.invalid && sistemaCardioCirculatorio.touched" class="text-danger">
+                  O
+                  campo é obrigatório.
+                </div>
+              </div>
+
+
+              <div class="col-md-12">
+                <h5>Pulsos:</h5>
+              </div>
+
+              <div class="col-3" style="padding-left: 5%;">
+                <h6 style="color: black; margin-top: -15px;">P: Presente</h6>
+              </div>
+              <div class="col-3" style="padding-left: 5%;">
+                <h6 style="color: black;margin-top: -15px;">A: Ausente</h6>
+              </div>
+              <div class="col-3" style="padding-left: 5%;">
+                <h6 style="color: black;margin-top: -15px;">C: Cheio</h6>
+              </div>
+              <div class="col-3" style="padding-left: 5%;">
+                <h6 style="color: black;margin-top: -15px;">F: Filiforme</h6>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-check form-check-inline">
+                  <h5 for="carotideos">Carotídeos: </h5>
+                </div>
+                <div class="form-check form-check-inline">
+                  <h6 for="carotideosEsquerdo" style="padding-right: 4px;">Esquerdo</h6>
+                  <input type="text" class="form-control" name="carotideosEsquerdo" id="" #carotideosEsquerdo="ngModel"
+                    required [(ngModel)]="ProntuarioEnfermagem.carotideosEsquerdo">
+                  <div *ngIf="carotideosEsquerdo.invalid && carotideosEsquerdo.touched" class="text-danger">O
+                    campo é obrigatório.
+                  </div>
+                </div>
+                <div class="form-check form-check-inline">
+                  <h6 for="carotideosDireito" style="padding-right: 25px; padding-left: 115px;">Direito</h6>
+                  <input type="text" class="form-control" name="carotideosDireito" id="" #carotideosDireito="ngModel"
+                    required [(ngModel)]="ProntuarioEnfermagem.carotideosDireito">
+                  <div *ngIf="carotideosDireito.invalid && carotideosDireito.touched" class="text-danger">O
+                    campo é obrigatório.
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-check form-check-inline">
+                  <h5 for="braquiais">Braquiais:</h5>
+                </div>
+                <div class="form-check form-check-inline">
+                  <h6 for="braquiaisEsquerdo" style="padding-right: 4px;">Esquerdo</h6>
+                  <input type="text" class="form-control" name="braquiaisEsquerdo" id="" #braquiaisEsquerdo="ngModel"
+                    required [(ngModel)]="ProntuarioEnfermagem.braquiaisEsquerdo">
+                  <div *ngIf="braquiaisEsquerdo.invalid && braquiaisEsquerdo.touched" class="text-danger">O
+                    campo é obrigatório.
+                  </div>
+                </div>
+                <div class="form-check form-check-inline">
+                  <h6 for="braquiaisEsquerdo" style="padding-right: 25px; padding-left: 101px;">Direito</h6>
+                  <input type="text" class="form-control" name="braquiaisDireito" id="" #braquiaisDireito="ngModel"
+                    required [(ngModel)]="ProntuarioEnfermagem.braquiaisDireito">
+                  <div *ngIf="braquiaisDireito.invalid && braquiaisDireito.touched" class="text-danger">O
+                    campo é obrigatório.
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-check form-check-inline">
+                  <h5 for="radiais">Radiais:</h5>
+                </div>
+                <div class="form-check form-check-inline">
+                  <h6 for="radiaisEsquerdo" style="padding-right: 4px; padding-left: 32px;">Esquerdo</h6>
+                  <input type="text" class="form-control" name="radiaisEsquerdo" id="" #radiaisEsquerdo="ngModel"
+                    required [(ngModel)]="ProntuarioEnfermagem.radiaisEsquerdo">
+                  <div *ngIf="radiaisEsquerdo.invalid && radiaisEsquerdo.touched" class="text-danger">O
+                    campo é obrigatório.
+                  </div>
+                </div>
+                <div class="form-check form-check-inline">
+                  <h6 for="radiaisEsquerdo" style="padding-right: 25px; padding-left: 115px;">Direito</h6>
+                  <input type="text" class="form-control" name="radiaisDireito" id="" #radiaisDireito="ngModel" required
+                    [(ngModel)]="ProntuarioEnfermagem.radiaisDireito">
+                  <div *ngIf="radiaisDireito.invalid && radiaisDireito.touched" class="text-danger">O
+                    campo é obrigatório.
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-check form-check-inline">
+                  <h5 for="femorais">Femurais:</h5>
+                </div>
+                <div class="form-check form-check-inline">
+                  <h6 for="femoraisEsquerdo" style="padding-right: 4px;">Esquerdo</h6>
+                  <input type="text" class="form-control" name="femoraisEsquerdo" id="" #femoraisEsquerdo="ngModel"
+                    required [(ngModel)]="ProntuarioEnfermagem.femoraisEsquerdo">
+                  <div *ngIf="femoraisEsquerdo.invalid && femoraisEsquerdo.touched" class="text-danger">O
+                    campo é obrigatório.
+                  </div>
+                </div>
+                <div class="form-check form-check-inline">
+                  <h6 for="femoraisEsquerdo" style="padding-right: 24px; padding-left: 101px;">Direito</h6>
+                  <input type="text" class="form-control" name="femoraisDireito" id="" #femoraisDireito="ngModel"
+                    required [(ngModel)]="ProntuarioEnfermagem.femoraisDireito">
+                  <div *ngIf="femoraisDireito.invalid && femoraisDireito.touched" class="text-danger">O
+                    campo é obrigatório.
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6 ">
+                <div class="form-check form-check-inline">
+                  <h5 for="pediosos">Pediosos:</h5>
+                </div>
+                <div class="form-check form-check-inline">
+                  <h6 for="pediososEsquerdo" style="padding-right: 4px; padding-left: 14px;">Esquerdo</h6>
+                  <input type="text" class="form-control" name="pediososEsquerdo" id="" #pediososEsquerdo="ngModel"
+                    required [(ngModel)]="ProntuarioEnfermagem.pediososEsquerdo">
+                  <div *ngIf="pediososEsquerdo.invalid && pediososEsquerdo.touched" class="text-danger">O
+                    campo é obrigatório.
+                  </div>
+                </div>
+                <div class="form-check form-check-inline">
+                  <h6 for="pediososEsquerdo " style="padding-right: 25px; padding-left: 114px;">Direito</h6>
+                  <input type="text" class="form-control" name="pediososDireito" id="" #pediososDireito="ngModel"
+                    required [(ngModel)]="ProntuarioEnfermagem.pediososDireito">
+                  <div *ngIf="pediososDireito.invalid && pediososDireito.touched" class="text-danger">O
+                    campo é obrigatório.
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-check form-check-inline">
+                  <h5 for="popliteos">Poplíteos:</h5>
+                </div>
+                <div class="form-check form-check-inline">
+                  <h6 for="popliteosEsquerdo" style="padding-right: 4px;">Esquerdo</h6>
+                  <input type="text" class="form-control" name="popliteosEsquerdo" id="" #popliteosEsquerdo="ngModel"
+                    required [(ngModel)]="ProntuarioEnfermagem.popliteosEsquerdo">
+                  <div *ngIf="popliteosEsquerdo.invalid && popliteosEsquerdo.touched" class="text-danger">O
+                    campo é obrigatório.
+                  </div>
+                </div>
+                <div class="form-check form-check-inline">
+                  <h6 for="popliteosEsquerdo" style="padding-right: 24px; padding-left: 103px;">Direito</h6>
+                  <input type="text" class="form-control" name="popliteosDireito" id="" #popliteosDireito="ngModel"
+                    required [(ngModel)]="ProntuarioEnfermagem.popliteosDireito">
+                  <div *ngIf="popliteosDireito.invalid && popliteosDireito.touched" class="text-danger">O
+                    campo é obrigatório.
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="col-md-6">
+                <h5>Perfusão Periférica</h5>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="perfusaoPeriferica" value="Normal"
+                    #perfusaoPeriferica="ngModel" required
+                    [(ngModel)]="ProntuarioEnfermagem.perfusaoPeriferica" />Normal
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="perfusaoPeriferica" value="Vasoconstrito"
+                    #perfusaoPeriferica="ngModel" required
+                    [(ngModel)]="ProntuarioEnfermagem.perfusaoPeriferica" />Vasoconstrito
+                </div>
+                <div *ngIf="perfusaoPeriferica.invalid && perfusaoPeriferica.touched" class="text-danger">O
+                  campo é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <h5>Edema</h5>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="edema" value="+" #edema="ngModel" required
+                    [(ngModel)]="ProntuarioEnfermagem.edema" /> +
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="edema" value="++" #edema="ngModel" required
+                    [(ngModel)]="ProntuarioEnfermagem.edema" /> ++
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="edema" value="+++" #edema="ngModel" required
+                    [(ngModel)]="ProntuarioEnfermagem.edema" /> +++
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="edema" value="++++" #edema="ngModel" required
+                    [(ngModel)]="ProntuarioEnfermagem.edema" /> ++++
+                </div>
+                <div *ngIf="edema.invalid && edema.touched" class="text-danger">O
+                  campo é obrigatório.
+                </div>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </mat-tab>
+
+      <mat-tab label="Sistema Respiratório">
+        <fieldset class="border p-4">
+          <div class="container mt-2">
+            <div class="row g-3">
+              <h4>Sistema Respiratório</h4>
+
+              <div class="col-md-4">
+                <h5>Padrão</h5>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="padrao" value="Dispneico" #padrao="ngModel"
+                    required [(ngModel)]="ProntuarioEnfermagem.padrao" /> Dispneico
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="padrao" value="Bradipneico" #padrao="ngModel"
+                    required [(ngModel)]="ProntuarioEnfermagem.padrao" /> Bradipneico
+                </div>
+                <div *ngIf="padrao.invalid && padrao.touched" class="text-danger">O
+                  campo é obrigatório.
+                </div>
+              </div>
+              <div class="col-md-4">
+                <h5>Murmúrio Vesicular</h5>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="murmurioVesicular" value="Aumentado"
+                    #murmurioVesicular="ngModel" required [(ngModel)]="ProntuarioEnfermagem.murmurioVesicular" />
+                  Aumentado
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="murmurioVesicular" value="Irregular"
+                    #murmurioVesicular="ngModel" required [(ngModel)]="ProntuarioEnfermagem.murmurioVesicular" />
+                  Irregular
+                </div>
+                <div *ngIf="murmurioVesicular.invalid && murmurioVesicular.touched" class="text-danger">O
+                  campo é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <h5>Expansão do Tórax</h5>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="expansaoTorax" value="Sibilos"
+                    #expansaoTorax="ngModel" required [(ngModel)]="ProntuarioEnfermagem.expansaoTorax" />
+                  Sibilos
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="expansaoTorax" value="Roncos"
+                    #expansaoTorax="ngModel" required [(ngModel)]="ProntuarioEnfermagem.expansaoTorax" />
+                  Roncos
+                </div>
+                <div *ngIf="expansaoTorax.invalid && expansaoTorax.touched" class="text-danger">O
+                  campo é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <h5>Ruidos Adventicios</h5>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="ruidosAdventicios" value="Simétrico"
+                    #ruidosAdventicios="ngModel" required [(ngModel)]="ProntuarioEnfermagem.ruidosAdventicios" />
+                  Simétrico
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="ruidosAdventicios" value="Assimétrico"
+                    #ruidosAdventicios="ngModel" required [(ngModel)]="ProntuarioEnfermagem.ruidosAdventicios" />
+                  Assimétrico
+                </div>
+                <div *ngIf="ruidosAdventicios.invalid && ruidosAdventicios.touched" class="text-danger">O
+                  campo é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <h5>Aceitação da Dieta:</h5>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="aceitacaoDieta" value="Ótimo"
+                    #aceitacaoDieta="ngModel" required [(ngModel)]="ProntuarioEnfermagem.aceitacaoDieta" />
+                  Ótimo
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="aceitacaoDieta" value="Satisfatório"
+                    #aceitacaoDieta="ngModel" required [(ngModel)]="ProntuarioEnfermagem.aceitacaoDieta" />
+                  Satisfatório
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="aceitacaoDieta" value="Regular"
+                    #aceitacaoDieta="ngModel" required [(ngModel)]="ProntuarioEnfermagem.aceitacaoDieta" />
+                  Regular
+                </div>
+                <div *ngIf="aceitacaoDieta.invalid && aceitacaoDieta.touched" class="text-danger">O
+                  campo é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <h5>Dentição:</h5>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="denticao" value="Normal" #denticao="ngModel"
+                    required [(ngModel)]="ProntuarioEnfermagem.denticao"> Normal
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="denticao" value="Uso de Prótese"
+                    #denticao="ngModel" required [(ngModel)]="ProntuarioEnfermagem.denticao"> Uso de
+                  Prótese
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="denticao" value="Ausência de Dentes"
+                    #denticao="ngModel" required [(ngModel)]="ProntuarioEnfermagem.denticao"> Ausência de
+                  Dentes
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="denticao" value="Cáries" #denticao="ngModel"
+                    required [(ngModel)]="ProntuarioEnfermagem.denticao"> Cáries
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="denticao" value="Presença de Placas"
+                    #denticao="ngModel" required [(ngModel)]="ProntuarioEnfermagem.denticao"> Presença de
+                  Placas
+                </div>
+                <div *ngIf="denticao.invalid && denticao.touched" class="text-danger">O
+                  campo é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-10">
+                <h5>Abdome:</h5>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="abdome" value="Plano" #abdome="ngModel"
+                    required [(ngModel)]="ProntuarioEnfermagem.abdome"> Plano
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="abdome" value="Escavado" #abdome="ngModel"
+                    required [(ngModel)]="ProntuarioEnfermagem.abdome"> Escavado
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="abdome" value="Ascítico" #abdome="ngModel"
+                    required [(ngModel)]="ProntuarioEnfermagem.abdome"> Ascítico
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="abdome" value="Distendido" #abdome="ngModel"
+                    required [(ngModel)]="ProntuarioEnfermagem.abdome"> Distendido
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="abdome" value="Flácido" #abdome="ngModel"
+                    required [(ngModel)]="ProntuarioEnfermagem.abdome"> Flácido
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="abdome" value="Globoso" #abdome="ngModel"
+                    required [(ngModel)]="ProntuarioEnfermagem.abdome"> Globoso
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="abdome" value="Semi Globoso"
+                    #abdome="ngModel" required [(ngModel)]="ProntuarioEnfermagem.abdome"> Semi Globoso
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="abdome" value="Timpânico" #abdome="ngModel"
+                    required [(ngModel)]="ProntuarioEnfermagem.abdome"> Timpânico
+                </div>
+                <div *ngIf="abdome.invalid && abdome.touched" class="text-danger">O
+                  campo é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-2">
+                <h5>RHA:</h5>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="rha" value="Ausente" #rha="ngModel" required
+                    [(ngModel)]="ProntuarioEnfermagem.rha"> Ausente
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="rha" value="Diminuido" #rha="ngModel"
+                    required [(ngModel)]="ProntuarioEnfermagem.rha">Diminuido
+                </div>
+                <div *ngIf="rha.invalid && rha.touched" class="text-danger">O
+                  campo é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <h5>Massa à Palpação:</h5>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="massa" value="Sim" #massa="ngModel" required
+                    [(ngModel)]="ProntuarioEnfermagem.massa"> Sim
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="massa" value="Não" #massa="ngModel" required
+                    [(ngModel)]="ProntuarioEnfermagem.massa"> Não
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="massa" value="Doloroso" #massa="ngModel"
+                    required [(ngModel)]="ProntuarioEnfermagem.massa"> Doloroso
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="massa" value="Indolor" #massa="ngModel"
+                    required [(ngModel)]="ProntuarioEnfermagem.massa"> Indolor
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="massa" value="Presença de Placas"
+                    #massa="ngModel" required [(ngModel)]="ProntuarioEnfermagem.massa"> Presença de
+                  Placas
+                </div>
+                <div *ngIf="massa.invalid && massa.touched" class="text-danger">O
+                  campo é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <h5>Evacuação:</h5>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="evacuacao" value="Normal sem estímulos"
+                    #evacuacao="ngModel" required [(ngModel)]="ProntuarioEnfermagem.evacuacao"> Normal sem
+                  estímulos
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="evacuacao" value=" Necessita de estímulos"
+                    #evacuacao="ngModel" required [(ngModel)]="ProntuarioEnfermagem.evacuacao"> Necessita
+                  de estímulos
+                </div>
+                <div *ngIf="evacuacao.invalid && evacuacao.touched" class="text-danger">O
+                  campo é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <h5>Gênito Urinário:</h5>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="genito" value="Diurese Espontânea"
+                    #genito="ngModel" required [(ngModel)]="ProntuarioEnfermagem.genito"> Diurese
+                  Espontânea
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="genito" value="Uso de Fralda"
+                    #genito="ngModel" required [(ngModel)]="ProntuarioEnfermagem.genito"> Uso de Fralda
+                </div>
+                <div *ngIf="genito.invalid && genito.touched" class="text-danger">O
+                  campo é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <h5>Aspecto da Urina:</h5>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="urina" value="Limpida" #urina="ngModel"
+                    required [(ngModel)]="ProntuarioEnfermagem.urina"> Limpida
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="urina" value="Concentrada" #urina="ngModel"
+                    required [(ngModel)]="ProntuarioEnfermagem.urina"> Concentrada
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="urina" value="Fétida" #urina="ngModel"
+                    required [(ngModel)]="ProntuarioEnfermagem.urina"> Fétida
+                </div>
+                <div *ngIf="urina.invalid && urina.touched" class="text-danger">O
+                  campo é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <h5>Eliminação Vesical:</h5>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="vesical" value="Normal" #vesical="ngModel"
+                    required [(ngModel)]="ProntuarioEnfermagem.vesical"> Normal
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="vesical" value="Dor" #vesical="ngModel"
+                    required [(ngModel)]="ProntuarioEnfermagem.vesical"> Dor
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="vesical" value="Prurido" #vesical="ngModel"
+                    required [(ngModel)]="ProntuarioEnfermagem.vesical"> Prurido
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="vesical" value="Ardor" #vesical="ngModel"
+                    required [(ngModel)]="ProntuarioEnfermagem.vesical"> Ardor
+                </div>
+                <div *ngIf="vesical.invalid && vesical.touched" class="text-danger">O
+                  campo é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <h5>Integridade Cutânea e Mucosa:</h5>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="cutanea" value="Corado" #cutanea="ngModel"
+                    required [(ngModel)]="ProntuarioEnfermagem.cutanea"> Corado
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="cutanea" value="Hipocorado"
+                    #cutanea="ngModel" required [(ngModel)]="ProntuarioEnfermagem.cutanea"> Hipocorado
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="cutanea" value="Ictérico" #cutanea="ngModel"
+                    required [(ngModel)]="ProntuarioEnfermagem.cutanea"> Ictérico
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="cutanea" value="Pele Íntegra"
+                    #cutanea="ngModel" required [(ngModel)]="ProntuarioEnfermagem.cutanea"> Pele Íntegra
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="cutanea" value="Pele Ressecada"
+                    #cutanea="ngModel" required [(ngModel)]="ProntuarioEnfermagem.cutanea"> Pele
+                  Ressecada
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="cutanea" value="Úlceras" #cutanea="ngModel"
+                    required [(ngModel)]="ProntuarioEnfermagem.cutanea"> Úlceras
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="cutanea" value="Escoriações"
+                    #cutanea="ngModel" required [(ngModel)]="ProntuarioEnfermagem.cutanea"> Escoriações
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="cutanea" value="Prurido" #cutanea="ngModel"
+                    required [(ngModel)]="ProntuarioEnfermagem.cutanea"> Prurido
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="cutanea" value="Hematomas" #cutanea="ngModel"
+                    required [(ngModel)]="ProntuarioEnfermagem.cutanea"> Hematomas
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input radio" type="radio" name="cutanea" value="Hiperemia" #cutanea="ngModel"
+                    required [(ngModel)]="ProntuarioEnfermagem.cutanea"> Hiperemia
+                </div>
+                <div *ngIf="cutanea.invalid && cutanea.touched" class="text-danger">O
+                  campo é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <h5>Escala de Braden:</h5>
+                <table class="braden-scale">
+                  <tr>
+                    <th class="tabela">Pontos</th>
+                    <th class="tabela">03</th>
+                    <th class="tabela">02</th>
+                    <th class="tabela">03</th>
+                    <th class="tabela">04</th>
+                  </tr>
+                  <tr>
+                    <td class="tabela">Percepção Sensorial</td>
+                    <td class="tabela"><input type="radio" class="form-check-input radio" name="sensorial"
+                        value="Totalmente Limitado" #sensorial="ngModel" required
+                        [(ngModel)]="ProntuarioEnfermagem.sensorial"> Totalmente Limitado</td>
+                    <td class="tabela"><input type="radio" class="form-check-input radio" name="sensorial"
+                        value="Muito Limitado" #sensorial="ngModel" required
+                        [(ngModel)]="ProntuarioEnfermagem.sensorial"> Muito Limitado</td>
+                    <td class="tabela"><input type="radio" class="form-check-input radio" name="sensorial"
+                        value="Levemente Limitado" #sensorial="ngModel" required
+                        [(ngModel)]="ProntuarioEnfermagem.sensorial"> Levemente Limitado</td>
+                    <td class="tabela"><input type="radio" class="form-check-input radio" name="sensorial"
+                        value="Nenhuma Limitação" #sensorial="ngModel" required
+                        [(ngModel)]="ProntuarioEnfermagem.sensorial"> Nenhuma Limitação</td>
+                    <div *ngIf="sensorial.invalid && sensorial.touched" class="text-danger">O
+                      campo é obrigatório.
+                    </div>
+                  </tr>
+                  <tr>
+                    <td class="tabela">Umidade</td>
+                    <td class="tabela"><input type="radio" class="form-check-input radio" name="umidade"
+                        value="Completamente Molhado" #umidade="ngModel" required
+                        [(ngModel)]="ProntuarioEnfermagem.umidade"> Completamente Molhado</td>
+                    <td class="tabela"><input type="radio" class="form-check-input radio" name="umidade"
+                        value="Muito Molhado" #umidade="ngModel" required [(ngModel)]="ProntuarioEnfermagem.umidade">
+                      Muito Molhado</td>
+                    <td class="tabela"><input type="radio" class="form-check-input radio" name="umidade"
+                        value="Ocasionalmente Molhado" #umidade="ngModel" required
+                        [(ngModel)]="ProntuarioEnfermagem.umidade"> Ocasionalmente Molhado</td>
+                    <td class="tabela"><input type="radio" class="form-check-input radio" name="umidade"
+                        value="Raramente Molhado" #umidade="ngModel" required
+                        [(ngModel)]="ProntuarioEnfermagem.umidade"> Raramente Molhado</td>
+                    <div *ngIf="umidade.invalid && umidade.touched" class="text-danger">O
+                      campo é obrigatório.
+                    </div>
+                  </tr>
+                  <tr>
+                    <td class="tabela">Atividade</td>
+                    <td class="tabela"><input type="radio" class="form-check-input radio" name="atividade"
+                        value="Acamado" #atividade="ngModel" required [(ngModel)]="ProntuarioEnfermagem.atividade">
+                      Acamado</td>
+                    <td class="tabela"><input type="radio" class="form-check-input radio" name="atividade"
+                        value="Confirmado à Cadeira" #atividade="ngModel" required
+                        [(ngModel)]="ProntuarioEnfermagem.atividade"> Confirmado à Cadeira</td>
+                    <td class="tabela"><input type="radio" class="form-check-input radio" name="atividade"
+                        value="Anda Ocasionalmente" #atividade="ngModel" required
+                        [(ngModel)]="ProntuarioEnfermagem.atividade"> Anda Ocasionalmente</td>
+                    <td class="tabela"><input type="radio" class="form-check-input radio" name="atividade"
+                        value="Anda Frequentemente" #atividade="ngModel" required
+                        [(ngModel)]="ProntuarioEnfermagem.atividade"> Anda Frequentemente</td>
+                    <div *ngIf="atividade.invalid && atividade.touched" class="text-danger">O
+                      campo é obrigatório.
+                    </div>
+                  </tr>
+                  <tr>
+                    <td class="tabela">Mobilidade</td>
+                    <td class="tabela"><input type="radio" class="form-check-input radio" name="mobilidade"
+                        value="Totalmente Imóvel" #mobilidade="ngModel" required
+                        [(ngModel)]="ProntuarioEnfermagem.mobilidade"> Totalmente Imóvel</td>
+                    <td class="tabela"><input type="radio" class="form-check-input radio" name="mobilidade"
+                        value="Bastante Limitado" #mobilidade="ngModel" required
+                        [(ngModel)]="ProntuarioEnfermagem.mobilidade"> Bastante Limitado</td>
+                    <td class="tabela"><input type="radio" class="form-check-input radio" name="mobilidade"
+                        value="Levemente Limitado" #mobilidade="ngModel" required
+                        [(ngModel)]="ProntuarioEnfermagem.mobilidade"> Levemente Limitado</td>
+                    <td class="tabela"><input type="radio" class="form-check-input radio" name="mobilidade"
+                        value="Não apresenta Limitações" #mobilidade="ngModel" required
+                        [(ngModel)]="ProntuarioEnfermagem.mobilidade"> Não apresenta Limitações</td>
+                    <div *ngIf="mobilidade.invalid && mobilidade.touched" class="text-danger">O
+                      campo é obrigatório.
+                    </div>
+                  </tr>
+                  <tr>
+                    <td class="tabela">Nutrição</td>
+                    <td class="tabela"><input type="radio" class="form-check-input radio" name="nutricao"
+                        value="Muito Pobre" #nutricao="ngModel" required [(ngModel)]="ProntuarioEnfermagem.nutricao">
+                      Muito Pobre</td>
+                    <td class="tabela"><input type="radio" class="form-check-input radio" name="nutricao"
+                        value="Provavelmente Inadequado" #nutricao="ngModel" required
+                        [(ngModel)]="ProntuarioEnfermagem.nutricao"> Provavelmente Inadequado</td>
+                    <td class="tabela"><input type="radio" class="form-check-input radio" name="nutricao"
+                        value="Adequado" #nutricao="ngModel" required [(ngModel)]="ProntuarioEnfermagem.nutricao">
+                      Adequado</td>
+                    <td class="tabela"><input type="radio" class="form-check-input radio" name="nutricao"
+                        value="Excelente" #nutricao="ngModel" required [(ngModel)]="ProntuarioEnfermagem.nutricao">
+                      Excelente</td>
+                    <div *ngIf="nutricao.invalid && nutricao.touched" class="text-danger">O
+                      campo é obrigatório.
+                    </div>
+                  </tr>
+                  <tr>
+                    <td class="tabela">Fricção Cisalhamento</td>
+                    <td class="tabela"><input type="radio" class="form-check-input radio" name="friccao"
+                        value="Problema" #friccao="ngModel" required [(ngModel)]="ProntuarioEnfermagem.friccao">
+                      Problema</td>
+                    <td class="tabela"><input type="radio" class="form-check-input radio" name="friccao"
+                        value="Problema em Potencial" #friccao="ngModel" required
+                        [(ngModel)]="ProntuarioEnfermagem.friccao"> Problema em Potencial</td>
+                    <td class="tabela"><input type="radio" class="form-check-input radio" name="friccao"
+                        value="Nenhum problema" #friccao="ngModel" required [(ngModel)]="ProntuarioEnfermagem.friccao">
+                      Nenhum problema</td>
+                    <div *ngIf="friccao.invalid && friccao.touched" class="text-danger">O
+                      campo é obrigatório.
+                    </div>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </mat-tab>
+
+      <mat-tab label="Saúde">
+        <fieldset class="border p-4">
+          <div class="container mt-2 ">
+            <div class="col-md-12">
+              <h3>Avaliação de Risco</h3>
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>Data</th>
+                    <th>Horários</th>
+                    <th>Pontos</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Risco Alto &lt;12</td>
+                    <td>Risco Moderado - 13 à 15</td>
+                    <td>Risco Baixo &gt; 15</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <h3>Diagnósticos de Enfermagem</h3>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio"
+                    value="Déficit no auto cuidado para higiene/banho relacionado ao prejuízo cognitivo, prejuízo musculoesquelético, caracterizado pela incapacidade de lavar corpo."
+                    id="higieneBanho" name="diagnosticosEnfermagem" #diagnosticosEnfermagem="ngModel" required
+                    [(ngModel)]="ProntuarioEnfermagem.diagnosticosEnfermagem">
+                  <label class="form-check-label" for="higieneBanho">
+                    Déficit no auto cuidado para higiene/banho relacionado ao prejuízo cognitivo, prejuízo
+                    musculoesquelético, caracterizado pela incapacidade de lavar corpo.
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio"
+                    value="Déficit no auto cuidado para higiene íntima relacionado ao prejuízo cognitivo e musculoesquelético caracterizado pela incapacidade de fazer uma higiene íntima apropriada."
+                    id="higieneIntima" name="diagnosticosEnfermagem" #diagnosticosEnfermagem="ngModel" required
+                    [(ngModel)]="ProntuarioEnfermagem.diagnosticosEnfermagem">
+                  <label class="form-check-label" for="higieneIntima">
+                    Déficit no auto cuidado para higiene íntima relacionado ao prejuízo cognitivo e musculoesquelético
+                    caracterizado pela incapacidade de fazer uma higiene íntima apropriada.
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio"
+                    value="Déficit no auto cuidado para vestir/ arrumar-se relacionado ao prejuízo cognitivo e prejuízo musculoesquelético caracterizado pela capacidade prejudicada de colocar itens do vestuário."
+                    id="vestir" name="diagnosticosEnfermagem" #diagnosticosEnfermagem="ngModel" required
+                    [(ngModel)]="ProntuarioEnfermagem.diagnosticosEnfermagem">
+                  <label class="form-check-label" for="vestir">
+                    Déficit no auto cuidado para vestir/ arrumar-se relacionado ao prejuízo cognitivo e prejuízo
+                    musculoesquelético caracterizado pela capacidade prejudicada de colocar itens do vestuário.
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio"
+                    value="Automutilação relacionado ao estado psicótico, perturbação emocional caracterizado por morde-se e arrancar unhas."
+                    id="arrancarUnhas" name="diagnosticosEnfermagem" #diagnosticosEnfermagem="ngModel" required
+                    [(ngModel)]="ProntuarioEnfermagem.diagnosticosEnfermagem">
+                  <label class="form-check-label" for="arrancarUnhas">
+                    Automutilação relacionado ao estado psicótico, perturbação emocional caracterizado por morde-se e
+                    arrancar unhas.
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio"
+                    value="Comunicação verbal prejudicada relacionado a barreira psicológica e caracterizado pela fala com dificuldade e a não verbalização."
+                    id="comunicacaoVerbal" name="diagnosticosEnfermagem" #diagnosticosEnfermagem="ngModel" required
+                    [(ngModel)]="ProntuarioEnfermagem.diagnosticosEnfermagem">
+                  <label class="form-check-label" for="comunicacaoVerbal">
+                    Comunicação verbal prejudicada relacionado a barreira psicológica e caracterizado pela fala com
+                    dificuldade e a não verbalização.
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio"
+                    value=" Constipação relacionado a anticonvulsivantes antidepressivos e sedativos, ingestão insuficiente de fibras caracterizado pela mudança do padrão intestinal presença de sangue vivo nas fezes."
+                    id="constipacaoAnticonvulsivantes" name="diagnosticosEnfermagem" #diagnosticosEnfermagem="ngModel"
+                    required [(ngModel)]="ProntuarioEnfermagem.diagnosticosEnfermagem">
+                  <label class="form-check-label" for="constipacaoAnticonvulsivantes">
+                    Constipação relacionado a anticonvulsivantes antidepressivos e sedativos, ingestão insuficiente de
+                    fibras caracterizado pela mudança do padrão intestinal presença de sangue vivo nas fezes.
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio"
+                    value="Deambulação prejudicada relacionado a visão prejudicada, prejuízo neuromuscular, musculoesquelético, força muscular insuficiente caracterizado pela capacidade prejudicada de andar."
+                    id="visaoPrejudicada" name="diagnosticosEnfermagem" #diagnosticosEnfermagem="ngModel" required
+                    [(ngModel)]="ProntuarioEnfermagem.diagnosticosEnfermagem">
+                  <label class="form-check-label" for="visaoPrejudicada">
+                    Deambulação prejudicada relacionado a visão prejudicada, prejuízo neuromuscular, musculoesquelético,
+                    força muscular insuficiente caracterizado pela capacidade prejudicada de andar.
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" value="Dor aguda." id="dorAguda"
+                    name="diagnosticosEnfermagem" #diagnosticosEnfermagem="ngModel" required
+                    [(ngModel)]="ProntuarioEnfermagem.diagnosticosEnfermagem">
+                  <label class="form-check-label" for="dorAguda">
+                    Dor aguda.
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" value="Débito cardíaco prejudicado." id="debitoCardiaco"
+                    name="diagnosticosEnfermagem" #diagnosticosEnfermagem="ngModel" required
+                    [(ngModel)]="ProntuarioEnfermagem.diagnosticosEnfermagem">
+                  <label class="form-check-label" for="debitoCardiaco">
+                    Débito cardíaco prejudicado.
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" value="Integridade da pele prejudicada."
+                    id="integridadePele" name="diagnosticosEnfermagem" #diagnosticosEnfermagem="ngModel" required
+                    [(ngModel)]="ProntuarioEnfermagem.diagnosticosEnfermagem">
+                  <label class="form-check-label" for="integridadePele">
+                    Integridade da pele prejudicada.
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio"
+                    value="Ansiedade relacionado ao ambiente, estresse, crises situacionais, hereditaredade, mudanças, conflito inconsciente quanto a valores essenciais da vida aos padrões de interação, caracterizado por agitação, insônia, nervosismo, observação atenta, movimento pouco comuns, olhar em torno pouco aflito, ansioso, nervoso, irritabilidade, excessivamente excitado, inquieto, tendência a culpar outros, esquecimento, preocupação, capacidade diminuída para aprender e capacidade diminuída de solucionar problemas."
+                    id="ansiedade" name="diagnosticosEnfermagem" #diagnosticosEnfermagem="ngModel" required
+                    [(ngModel)]="ProntuarioEnfermagem.diagnosticosEnfermagem">
+                  <label class="form-check-label" for="ansiedade">
+                    Ansiedade relacionado ao ambiente, estresse, crises situacionais, hereditaredade, mudanças, conflito
+                    inconsciente quanto a valores essenciais da vida aos padrões de interação, caracterizado por
+                    agitação, insônia, nervosismo, observação atenta, movimento pouco comuns, olhar em torno pouco
+                    aflito, ansioso, nervoso, irritabilidade, excessivamente excitado, inquieto, tendência a culpar
+                    outros, esquecimento, preocupação, capacidade diminuída para aprender e capacidade diminuída de
+                    solucionar problemas.
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio"
+                    value="Risco de aspiração, relacionado a administração de medicamentos, dentição prejudicada e esvaziamento gástrico retardada."
+                    id="riscoAspiracao" name="diagnosticosEnfermagem" #diagnosticosEnfermagem="ngModel" required
+                    [(ngModel)]="ProntuarioEnfermagem.diagnosticosEnfermagem">
+                  <label class="form-check-label" for="riscoAspiracao">
+                    Risco de aspiração, relacionado a administração de medicamentos, dentição prejudicada e esvaziamento
+                    gástrico retardada.
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" value="Risco de infecção." id="riscoInfeccao"
+                    name="diagnosticosEnfermagem" #diagnosticosEnfermagem="ngModel" required
+                    [(ngModel)]="ProntuarioEnfermagem.diagnosticosEnfermagem">
+                  <label class="form-check-label" for="riscoInfeccao">
+                    Risco de infecção.
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" value="Mobilidade física prejudicada."
+                    id="mobilidadeFisica" name="diagnosticosEnfermagem" #diagnosticosEnfermagem="ngModel" required
+                    [(ngModel)]="ProntuarioEnfermagem.diagnosticosEnfermagem">
+                  <label class="form-check-label" for="mobilidadeFisica">
+                    Mobilidade física prejudicada.
+                  </label>
+                </div>
+                <div *ngIf="diagnosticosEnfermagem.invalid && diagnosticosEnfermagem.touched" class="text-danger">O
+                  campo é obrigatório.
+                </div>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </mat-tab>
+
+      <mat-tab label="Saúde mental">
+        <fieldset class="border p-4">
+          <div class="container mt-2 ">
+            <h1>Controle de Sinais Vitais</h1>
+            <table>
+              <thead>
+                <tr>
+                  <th>Data</th>
+                  <th>Horário</th>
+                  <th>PA</th>
+                  <th>FC</th>
+                  <th>FR</th>
+                  <th>Temp</th>
+                  <th>PVC</th>
+                  <th>Glicemia</th>
+                  <th>Anotações de Enfermagem</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <input type="date" class="form-control" name="controleSinaisVitaisData"
+                      #controleSinaisVitaisData="ngModel" required
+                      [(ngModel)]="ProntuarioEnfermagem.controleSinaisVitaisData">
+                    <div *ngIf="controleSinaisVitaisData.invalid && controleSinaisVitaisData.touched"
+                      class="text-danger">O
+                      campo é obrigatório.
+                    </div>
+                  </td>
+                  <td><input type="time" name="controleSinaisVitaisHorario" #controleSinaisVitaisHorario="ngModel"
+                      required [(ngModel)]="ProntuarioEnfermagem.controleSinaisVitaisHorario">
+                    <div *ngIf="controleSinaisVitaisHorario.invalid && controleSinaisVitaisHorario.touched"
+                      class="text-danger">O
+                      campo é obrigatório.
+                    </div>
+                  </td>
+                  <td><input type="text" name="controleSinaisVitaisPa" #controleSinaisVitaisPa="ngModel" required
+                      [(ngModel)]="ProntuarioEnfermagem.controleSinaisVitaisPa">
+                    <div *ngIf="controleSinaisVitaisPa.invalid && controleSinaisVitaisPa.touched" class="text-danger">O
+                      campo é obrigatório.
+                    </div>
+                  </td>
+                  <td><input type="text" name="controleSinaisVitaisFc" #controleSinaisVitaisFc="ngModel" required
+                      [(ngModel)]="ProntuarioEnfermagem.controleSinaisVitaisFc">
+                    <div *ngIf="controleSinaisVitaisFc.invalid && controleSinaisVitaisFc.touched" class="text-danger">O
+                      campo é obrigatório.
+                    </div>
+                  </td>
+                  <td><input type="text" name="controleSinaisVitaisFr" #controleSinaisVitaisFr="ngModel" required
+                      [(ngModel)]="ProntuarioEnfermagem.controleSinaisVitaisFr">
+                    <div *ngIf="controleSinaisVitaisFr.invalid && controleSinaisVitaisFr.touched" class="text-danger">O
+                      campo é obrigatório.
+                    </div>
+                  </td>
+                  <td><input type="text" name="controleSinaisVitaisTemp" #controleSinaisVitaisTemp="ngModel" required
+                      [(ngModel)]="ProntuarioEnfermagem.controleSinaisVitaisTemp">
+                    <div *ngIf="controleSinaisVitaisTemp.invalid && controleSinaisVitaisTemp.touched"
+                      class="text-danger">O
+                      campo é obrigatório.
+                    </div>
+                  </td>
+                  <td><input type="text" name="controleSinaisVitaisPvc" #controleSinaisVitaisPvc="ngModel" required
+                      [(ngModel)]="ProntuarioEnfermagem.controleSinaisVitaisPvc">
+                    <div *ngIf="controleSinaisVitaisPvc.invalid && controleSinaisVitaisPvc.touched" class="text-danger">
+                      O
+                      campo é obrigatório.
+                    </div>
+                  </td>
+                  <td><input type="text" name="controleSinaisVitaisGlicemia" #controleSinaisVitaisGlicemia="ngModel"
+                      required [(ngModel)]="ProntuarioEnfermagem.controleSinaisVitaisGlicemia">
+                    <div *ngIf="controleSinaisVitaisGlicemia.invalid && controleSinaisVitaisGlicemia.touched"
+                      class="text-danger">O
+                      campo é obrigatório.
+                    </div>
+                  </td>
+                  <td><textarea name="controleSinaisVitaisAnotacoes" #controleSinaisVitaisAnotacoes="ngModel" required
+                      [(ngModel)]="ProntuarioEnfermagem.controleSinaisVitaisAnotacoes"></textarea>
+                    <div *ngIf="controleSinaisVitaisAnotacoes.invalid && controleSinaisVitaisAnotacoes.touched"
+                      class="text-danger">O
+                      campo é obrigatório.
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="col-md-12">
+              <button type="submit" class="btn btn-primary">
+                Enviar
+              </button>
+            </div>
+          </div>
+        </fieldset>
+      </mat-tab>
+    </mat-tab-group>
+  </form>
+</div>

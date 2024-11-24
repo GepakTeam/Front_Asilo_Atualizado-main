@@ -1,0 +1,45 @@
+<app-navbar></app-navbar>
+<div class="container-fluid">
+    <table class="table" *ngIf="psicologa">
+        <thead>
+            <tr class="table">
+                <th scope="col">Nome</th>
+                <th scope="col">Data Nascimento</th>
+                <th scope="col">RG</th>
+                <th scope="col">CPF</th>
+                <th scope="col">Responsável Solidário</th>
+                <th scope="col">Endereço</th>
+                <th scope="col">Município</th>
+                <th scope="col">Problemas de Saúde</th>
+                <th scope="col">Consciente</th>
+                <th scope="col">Religião</th>
+                <th scope="col">Filho</th>
+                <th scope="col">Quantos</th>
+                <th scope="col">Acolhimento particular ou através do creas</th>
+                <th scope="col">Histórico de Vida</th>
+                <th scope="col">Mais Informações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="table" *ngFor="let psi of psicologa">
+                <td class="nome">{{ psi.nome }}</td>
+                <td class="nome">{{ psi.dataNascimento }}</td>
+                <td class="nome">{{ psi.rg }}</td>
+                <td class="nome">{{ psi.cpf }}</td>
+                <td class="nome">{{ psi.responsavel }}</td>
+                <td class="nome">{{ psi.endereco }}</td>
+                <td class="nome">{{ psi.municipio }}</td>
+                <td class="nome">{{ psi.saude }}</td>
+                <td class="nome">{{ psi.consciente }}</td>
+                <td class="nome">{{ psi.religiao }}</td>
+                <td class="nome">{{ psi.filho }}</td>
+                <td class="nome">{{ psi.qntFilho }}</td>
+                <td class="nome">{{ psi.acolhimento }}</td>
+                <td class="nome">{{ psi.historico }}</td>
+                <td class="detalhes">
+                    <button type="button" class="btn btn-info" value="Detalhes" href="./listaCompleta">Detalhes</button>
+                </td>  
+            </tr>
+        </tbody>
+    </table>
+</div>

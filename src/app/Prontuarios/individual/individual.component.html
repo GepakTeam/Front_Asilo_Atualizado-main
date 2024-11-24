@@ -1,0 +1,747 @@
+<app-navbar></app-navbar>
+
+<div class="content">
+  <!-- Mensagem geral de erro -->
+  <div *ngIf="showErrorCard" class="card text-bg-danger error-card">
+    <div class="card-header">Erro</div>
+    <div class="card-body">
+      <h5 class="card-title">Envio Inválido</h5>
+      <p class="card-text">Por favor, preencha todos os campos obrigatórios antes de enviar.</p>
+    </div>
+  </div>
+
+  <!-- Card de Confirmação de Envio -->
+  <div *ngIf="showSuccessCard" class="card text-bg-success success-card">
+    <div class="card-header">Sucesso</div>
+    <div class="card-body">
+      <h5 class="card-title">Envio Bem-Sucedido</h5>
+      <p class="card-text">Os dados foram enviados com sucesso!</p>
+    </div>
+  </div>
+
+
+  <form #form="ngForm" (ngSubmit)="ProntIndividual()" class="row g-3">
+    <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+      <mat-tab label="Informações do Idoso">
+        <fieldset class="border p-4">
+          <div class="container mt-2">
+            <div class="row g-3">
+              <h4>Dados do Idoso</h4>
+
+              <div class="col-md-12">
+                <h6 for="validationCustom01" class="form-label">Nome Completo</h6>
+                <input type="text" class="form-control" id="nome" name="nome" [(ngModel)]="ProntuarioIndividual.nome"
+                  #nome="ngModel" required />
+                <div *ngIf="nome.invalid && nome.touched" class="text-danger">O campo Nome é obrigatório.</div>
+              </div>
+
+              <div class="col-md-4">
+                <h6 for="validationCustom01">Data de Nascimento</h6>
+                <input type="date" class="form-control" name="dataNascimento"
+                  [(ngModel)]="ProntuarioIndividual.dataNascimento" #dataNascimento="ngModel" required />
+                <div *ngIf="dataNascimento.invalid && dataNascimento.touched" class="text-danger">
+                  O campo Data de Nascimento é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <h6 for="validationCustom01" class="form-label">Idade</h6>
+                <input type="text" class="form-control" name="idade" [(ngModel)]="ProntuarioIndividual.idade"
+                  #idade="ngModel" required />
+                <div *ngIf="idade.invalid && idade.touched" class="text-danger">O campo Idade é obrigatório.</div>
+              </div>
+
+              <div class="col-md-4">
+                <h6 for="validationCustom01" class="form-label">Local de nascimento</h6>
+                <input type="text" class="form-control" name="localNascimento"
+                  [(ngModel)]="ProntuarioIndividual.localNascimento" #localNascimento="ngModel" required />
+                <div *ngIf="localNascimento.invalid && localNascimento.touched" class="text-danger">
+                  O campo Local de Nascimento é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <h6 for="validationCustom01" class="form-label">Sexo</h6><br>
+                <div class="form-check form-check-inline">
+                  <label>
+                    <input class="form-check-input radio" type="radio" name="sexo" value="Feminino"
+                      [(ngModel)]="ProntuarioIndividual.sexo" id="sexo" #sexo="ngModel" required />
+                    Feminino
+                  </label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <label>
+                    <input class="form-check-input radio" type="radio" name="sexo" value="Masculino"
+                      [(ngModel)]="ProntuarioIndividual.sexo" id="sexo" #sexo="ngModel" required />
+                    Masculino
+                  </label>
+                </div>
+                <div *ngIf="sexo.invalid && sexo.touched" class="text-danger">
+                  O campo Sexo é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <h6 for="validationCustom01" class="form-label">Raça</h6><br>
+                <div class="form-check form-check-inline">
+                  <label>
+                    <input class="form-check-input radio" type="radio" name="raca" value="Branca"
+                      [(ngModel)]="ProntuarioIndividual.raca" #raca="ngModel" required />
+                    Branca
+                  </label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <label>
+                    <input class="form-check-input radio" type="radio" name="raca" value="Preta"
+                      [(ngModel)]="ProntuarioIndividual.raca" #raca="ngModel" required />
+                    Preta
+                  </label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <label>
+                    <input class="form-check-input radio" type="radio" name="raca" value="Parda"
+                      [(ngModel)]="ProntuarioIndividual.raca" #raca="ngModel" required />
+                    Parda
+                  </label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <label>
+                    <input class="form-check-input radio" type="radio" name="raca" value="Amarela"
+                      [(ngModel)]="ProntuarioIndividual.raca" #raca="ngModel" required />
+                    Amarela
+                  </label>
+                </div>
+                <div *ngIf="raca.invalid && raca.touched" class="text-danger">
+                  O campo Raça é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <h6 for="validationCustom01" class="form-label">Telefone</h6>
+                <input type="text" class="form-control" id="celular" placeholder="(xx) xxxxx-xxxx" maxlength="12"
+                  name="telefone" [(ngModel)]="ProntuarioIndividual.telefone" #telefone="ngModel" required />
+                <script>
+                  // Adiciona a máscara ao campo de celular
+                  document
+                    .getElementById("celular")
+                    .addEventListener("input", function (e) {
+                      var value = e.target.value.replace(/\D/g, "");
+                      var formattedValue = "(" + value.substring(0, 2);
+                      if (value.length > 2) {
+                        formattedValue += ") " + value.substring(2, 5);
+                      }
+                      if (value.length > 6) {
+                        formattedValue += "-" + value.substring(5, 9);
+                      }
+                      e.target.value = formattedValue;
+                    });
+                </script>
+                <div *ngIf="telefone.invalid && telefone.touched" class="text-danger">
+                  O campo Telefone é obrigatório.
+                </div>
+              </div>
+
+
+              <div class="col-md-4">
+                <h6 for="validationCustom01" class="form-label">Nome da mãe</h6>
+                <input type="text" class="form-control" id="nomeMae" name="nomeMae"
+                  [(ngModel)]="ProntuarioIndividual.nomeMae" #nomeMae="ngModel" required />
+                <div *ngIf="nomeMae.invalid && nomeMae.touched" class="text-danger">
+                  O campo Nome da Mãe é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <h6 for="validationCustom01" class="form-label">Nome do pai</h6>
+                <input type="text" class="form-control" id="nomePai" name="nomePai"
+                  [(ngModel)]="ProntuarioIndividual.nomePai" #nomePai="ngModel" required />
+                <div *ngIf="nomePai.invalid && nomePai.touched" class="text-danger">
+                  O campo Nome do Pai é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <h6 for="validationCustom01" class="form-label">Nome do responsável</h6>
+                <input type="text" class="form-control" id="nomeResponsavel" name="nomeResponsavel"
+                  [(ngModel)]="ProntuarioIndividual.nomeResponsavel" #endereco="ngModel" required />
+                <div *ngIf="endereco.invalid && endereco.touched" class="text-danger">
+                  O campo Endereço é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <h6 for="validationCustom01" class="form-label">Endereço</h6>
+                <input type="text" class="form-control" placeholder="Rua Principal, 123" name="endereco"
+                  [(ngModel)]="ProntuarioIndividual.endereco" #endereco="ngModel" required />
+                <div *ngIf="endereco.invalid && endereco.touched" class="text-danger">
+                  O campo Endereço é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-2">
+                <h6 for="validationCustom01" class="form-label">CEP</h6>
+                <input type="text" class="form-control" name="cep" [(ngModel)]="ProntuarioIndividual.cep" #cep="ngModel"
+                  required />
+                <div *ngIf="cep.invalid && cep.touched" class="text-danger">
+                  O campo CEP é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <h6 for="validationCustom01" class="form-label">Ponto de referência</h6>
+                <input type="text" class="form-control" name="pontoReferencia"
+                  [(ngModel)]="ProntuarioIndividual.pontoReferencia" #pontoReferencia="ngModel" required />
+                <div *ngIf="pontoReferencia.invalid && pontoReferencia.touched" class="text-danger">
+                  O campo Ponto de Referência é obrigatório.
+                </div>
+              </div>
+
+
+
+              <h4>Documentação do Idoso</h4>
+              <div class="col-md-4">
+                <h6 for="validationCustom01" class="form-check-label">RG</h6>
+                <input type="text" class="form-control" name="rg" [(ngModel)]="ProntuarioIndividual.rg" #rg="ngModel"
+                  pattern="^\d{10}$" maxlength="10" required />
+                <div *ngIf="rg.invalid && rg.touched" class="text-danger">
+                  O campo RG deve conter 10 números.
+                </div>
+              </div>
+              <div class="col-md-4">
+                <h6 for="validationCustom01" class="form-check-label">CPF</h6>
+                <input type="text" class="form-control" name="cpf" [(ngModel)]="ProntuarioIndividual.cpf" #cpf="ngModel"
+                  pattern="^\d{11}$" maxlength="11" required />
+                <div *ngIf="cpf.invalid && cpf.touched" class="text-danger">
+                  O campo CPF deve conter 11 números.
+                </div>
+              </div>
+              <div class="col-md-4">
+                <h6 for="validationCustom01" class="form-check-label">Carteira de trabalho</h6>
+                <input type="text" class="form-control" name="carteiraTrabalho"
+                  [(ngModel)]="ProntuarioIndividual.carteiraTrabalho" #carteiraTrabalho="ngModel" pattern="^\d{8}$"
+                  maxlength="8" required />
+                <div *ngIf="carteiraTrabalho.invalid && carteiraTrabalho.touched" class="text-danger">
+                  O campo carteira de trabalho deve conter 8 números.
+                </div>
+              </div>
+              <div class="col-md-4">
+                <h6 for="validationCustom01" class="form-check-label">Título eleitoral</h6>
+                <input type="text" class="form-control" name="tituloEleitoral"
+                  [(ngModel)]="ProntuarioIndividual.tituloEleitoral" #tituloEleitoral="ngModel" pattern="^\d{12}$"
+                  maxlength="12" required />
+                <div *ngIf="tituloEleitoral.invalid && tituloEleitoral.touched" class="text-danger">
+                  O campo título de eleitor deve conter 12 números.
+                </div>
+              </div>
+              <div class="col-md-4">
+                <h6 for="validationCustom01" class="form-check-label">Certidão de nascimento</h6>
+                <input type="text" class="form-control" name="certidaoNascimento"
+                  [(ngModel)]="ProntuarioIndividual.certidaoNascimento" #certidaoNascimento="ngModel" pattern="^\d{32}$"
+                  maxlength="32" required />
+                <div *ngIf="certidaoNascimento.invalid && certidaoNascimento.touched" class="text-danger">
+                  O campo certidão de nascimento deve conter 32 números.
+                </div>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </mat-tab>
+
+      <mat-tab label="Situação familiar">
+        <fieldset class="border p-4">
+          <div class="container mt-2">
+            <div class="row g-3">
+              <h4>Situação Socioeconômica</h4>
+              <h5>Relação familiar</h5>
+              <div class="col-md-4">
+                <h6 for="validationCustom01" class="form-label" for="amigavelCheckbox">Amigável</h6>
+                <input type="text" class="form-control" placeholder="Com quem" name="relacaoAmigavel"
+                  [(ngModel)]="ProntuarioIndividual.relacaoAmigavel" #relacaoAmigavel="ngModel" required />
+                <div *ngIf="relacaoAmigavel.invalid && relacaoAmigavel.touched" class="text-danger">
+                  O campo Relação Amigável é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <h6 for="validationCustom01" class="form-label"> Distanciados </h6>
+                <input type="text" class="form-control" placeholder="Com quem" name="relacaoDistanciados"
+                  [(ngModel)]="ProntuarioIndividual.relacaoDistanciados" #relacaoDistanciados="ngModel" required />
+                <div *ngIf="relacaoDistanciados.invalid && relacaoDistanciados.touched" class="text-danger">
+                  O campo Relação Distanciados é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <h6 for="validationCustom01" class="form-label"> Conflituosa </h6>
+                <input type="text" class="form-control" placeholder="Com quem" name="relacaoConflituosa"
+                  [(ngModel)]="ProntuarioIndividual.relacaoConflituosa" #relacaoConflituosa="ngModel" required />
+                <div *ngIf="relacaoConflituosa.invalid && relacaoConflituosa.touched" class="text-danger">
+                  O campo Relação Conflituosa é obrigatório.
+                </div>
+              </div>
+
+              <h5>Residência</h5>
+              <div class="col-md-12">
+                <h6 for="validationCustom01" class="form-label"> Quem residiam na casa </h6>
+                <input type="text" class="form-control" name="quemResideCasa"
+                  [(ngModel)]="ProntuarioIndividual.quemResideCasa" #quemResideCasa="ngModel" required />
+                <div *ngIf="quemResideCasa.invalid && quemResideCasa.touched" class="text-danger">
+                  O campo Quem mora na residência é obrigatório.
+                </div>
+              </div>
+
+              <h5>Tem filhos?</h5>
+              <div class="col-md-12">
+                <div class="form-check form-check-inline">
+                  <label>
+                    <input class="form-check-input radio" type="radio" name="filho" value="Sim"
+                      [(ngModel)]="ProntuarioIndividual.filho" #filho="ngModel" required />
+                    Sim
+                  </label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <label>
+                    <input class="form-check-input radio" type="radio" name="filho" value="Não"
+                      [(ngModel)]="ProntuarioIndividual.filho" #filho="ngModel" required />
+                    Não
+                  </label>
+                </div>
+                <div *ngIf="filho.invalid && filho.touched" class="text-danger">
+                  O campo Tem Filhos é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <h6>Quantos filhos?</h6>
+                <input type="text" class="form-control" name="qntFilho" [(ngModel)]="ProntuarioIndividual.qntFilho"
+                  #qntFilho="ngModel" required />
+                <div *ngIf="qntFilho.invalid && qntFilho.touched" class="text-danger">
+                  O campo Quantos Filhos é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <h6>Com quem moram seus filhos?</h6>
+                <input type="text" class="form-control" name="comQuemMoraFilhos"
+                  [(ngModel)]="ProntuarioIndividual.comQuemMoraFilhos" #comQuemMoraFilhos="ngModel" required />
+                <div *ngIf="comQuemMoraFilhos.invalid && comQuemMoraFilhos.touched" class="text-danger">
+                  O campo Com quem mora os Filhos é obrigatório.
+                </div>
+              </div>
+
+              <h5>Condições habitacionais</h5>
+              <div class="col-md-2">
+                <div class="form-check">
+                  <label>
+                    <input class="form-check-input radio" type="radio" name="moradia" value="CasaPrópria"
+                      [(ngModel)]="ProntuarioIndividual.moradia" #moradia="ngModel" required />
+                    Casa própria
+                  </label>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div class="form-check">
+                  <label>
+                    <input class="form-check-input radio" type="radio" name="moradia" value="Alugada"
+                      [(ngModel)]="ProntuarioIndividual.moradia" #moradia="ngModel" required />
+                    Alugada
+                  </label>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div class="form-check">
+                  <label>
+                    <input class="form-check-input radio" type="radio" name="moradia" value="Cedida"
+                      [(ngModel)]="ProntuarioIndividual.moradia" #moradia="ngModel" required />
+                    Cedida
+                  </label>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div class="form-check">
+                  <label>
+                    <input class="form-check-input radio" type="radio" name="moradia" value="Doada"
+                      [(ngModel)]="ProntuarioIndividual.moradia" #moradia="ngModel" required />
+                    Doada
+                  </label>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div class="form-check">
+                  <label>
+                    <input class="form-check-input radio" type="radio" name="moradia" value="Sem moradia"
+                      [(ngModel)]="ProntuarioIndividual.moradia" #moradia="ngModel" required />
+                    Sem moradia
+                  </label>
+                </div>
+              </div>
+              <div *ngIf="moradia.invalid && moradia.touched" class="text-danger">
+                O campo Condições habitacionais é obrigatório.
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </mat-tab>
+
+      <mat-tab label="Saúde">
+        <fieldset class="border p-4">
+          <div class="container mt-2">
+            <div class="row g-3">
+              <h4>Saúde</h4>
+              <h5>Possui alguma doenças pregresas?</h5>
+              <div class="col-md-12">
+                <input type="text" class="form-control" name="doenca" [(ngModel)]="ProntuarioIndividual.doenca"
+                  #doenca="ngModel" required />
+                <div *ngIf="doenca.invalid && doenca.touched" class="text-danger">
+                  O campo Possui alguma doenças pregresas é obrigatório.
+                </div>
+              </div>
+
+              <h5>Possui alguma deficiência?</h5><br>
+              <div class="col-md-12">
+                <div class="col-md-1 form-check form-check-inline">
+                  <label>
+                    <input class="form-check-input radio" type="radio" name="deficiencia" value="Sim"
+                      [(ngModel)]="ProntuarioIndividual.deficiencia" #deficiencia="ngModel" required />
+                    Sim
+                  </label>
+                </div>
+                <div class="col-md-1 form-check form-check-inline">
+                  <label>
+                    <input class="form-check-input radio" type="radio" name="deficiencia" value="Não"
+                      [(ngModel)]="ProntuarioIndividual.deficiencia" #deficiencia="ngModel" required />
+                    Não
+                  </label>
+                </div>
+                <div *ngIf="deficiencia.invalid && deficiencia.touched" class="text-danger">
+                  O campo Possui alguma deficiência é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <h6>Se SIM qual deficiência possui? </h6>
+                <input type="text" class="form-control" name="quaisDeficiencias"
+                  [(ngModel)]="ProntuarioIndividual.quaisDeficiencias" #quaisDeficiencias="ngModel" required />
+                <div *ngIf="quaisDeficiencias.invalid && quaisDeficiencias.touched" class="text-danger">
+                  O campo Qual deficiência é obrigatório.
+                </div>
+              </div>
+
+              <h5>Como você descreve a saúde:</h5>
+              <div class="col-md-3">
+                <div class="form-check">
+                  <label>
+                    <input class="form-check-input radio" type="radio" name="saude" value="MuitoBoa"
+                      [(ngModel)]="ProntuarioIndividual.saude" #saude="ngModel" required />
+                    Muito boa
+                  </label>
+                </div>
+                <div class="form-check">
+                  <label>
+                    <input class="form-check-input radio" type="radio" name="saude" value="Boa"
+                      [(ngModel)]="ProntuarioIndividual.saude" #saude="ngModel" required />
+                    Boa
+                  </label>
+                </div>
+                <div class="form-check">
+                  <label>
+                    <input class="form-check-input radio" type="radio" name="saude" value="Ruim"
+                      [(ngModel)]="ProntuarioIndividual.saude" #saude="ngModel" required />
+                    Ruim
+                  </label>
+                </div>
+                <div class="form-check">
+                  <label>
+                    <input class="form-check-input radio" type="radio" name="saude" value="Péssimo"
+                      [(ngModel)]="ProntuarioIndividual.saude" #saude="ngModel" required />
+                    Péssimo
+                  </label>
+                </div>
+                <div *ngIf="saude.invalid && saude.touched" class="text-danger">
+                  O campo Saúde é obrigatório.
+                </div>
+              </div>
+
+              <h5>Atividades de Lazer:</h5>
+              <div class="col-md-2">
+                <h5 class="form-check-label"> Ler </h5>
+              </div>
+              <div class="col-md-2">
+                <h5 class="form-check-label"> Jogar bola </h5>
+              </div>
+              <div class="col-md-2">
+                <h5 class="form-check-label"> Videogame </h5>
+              </div>
+              <div class="col-md-2">
+                <h5 class="form-check-label">Bicicleta</h5>
+              </div>
+              <div class="col-md-2">
+                <h5 class="form-check-label">Yoga</h5>
+              </div>
+              <div class="col-md-2">
+                <h5 class="form-check-label">Ginástica Funcional</h5>
+              </div>
+
+              <div class="col-md-12">
+                <h6>Entre as opções de atividades de lazer apresentadas, você pratica alguma? Caso não pratique nenhuma
+                  destas, por favor, informe outras atividades que realiza no campo abaixo.</h6>
+                <input type="text" class="form-control mt-2" id="outrasCondicoes" name="atividadesLazer"
+                  [(ngModel)]="ProntuarioIndividual.atividadesLazer" #atividadesLazer="ngModel" required />
+                <div *ngIf="atividadesLazer.invalid && atividadesLazer.touched" class="text-danger">
+                  O campo Atividades de Lazer é obrigatório.
+                </div>
+              </div>
+
+              <h5>Tem parceira(o)?</h5>
+              <div class="col-md-1">
+                <div class="form-check">
+                  <label>
+                    <input class="form-check-input radio" type="radio" name="parceiros" value="Sim"
+                      [(ngModel)]="ProntuarioIndividual.parceiros" #parceiros="ngModel" required />
+                    Sim
+                  </label>
+                </div>
+                <div class="form-check">
+                  <label>
+                    <input class="form-check-input radio" type="radio" name="parceiros" value="Não"
+                      [(ngModel)]="ProntuarioIndividual.parceiros" #parceiros="ngModel" required />
+                    Não
+                  </label>
+                </div>
+                <div *ngIf="parceiros.invalid && parceiros.touched" class="text-danger">
+                  O campo Tem parceira(o) é obrigatório.
+                </div>
+              </div>
+
+              <h5>Está tendo acompanhamento médico?</h5>
+              <div class="col-md-1">
+                <div class="form-check">
+                  <label>
+                    <input class="form-check-input radio" type="radio" name="acompanhamento" value="Sim"
+                      [(ngModel)]="ProntuarioIndividual.acompanhamento" #acompanhamento="ngModel" required />
+                    Sim
+                  </label>
+                </div>
+                <div class="form-check">
+                  <label>
+                    <input class="form-check-input radio" type="radio" name="acompanhamento" value="Não"
+                      [(ngModel)]="ProntuarioIndividual.acompanhamento" #acompanhamento="ngModel" required />
+                    Não
+                  </label>
+                </div>
+                <div *ngIf="acompanhamento.invalid && acompanhamento.touched" class="text-danger">
+                  O campo Está tendo acompanhamento médico é obrigatório.
+                </div>
+              </div>
+              <div class="col-md-12">
+                <h6>Qual medicação está sendo usada?</h6>
+                <input type="text" class="form-control" name="qualMedicacao"
+                  [(ngModel)]="ProntuarioIndividual.qualMedicacao" #qualMedicacao="ngModel" required />
+                <div *ngIf="acompanhamento.invalid && acompanhamento.touched" class="text-danger">
+                  O campo Qual medicação está sendo usada é obrigatório.
+                </div>
+              </div>
+
+              <h5>Você tem algum plano de saúde?</h5>
+              <div class="col-md-1">
+                <div class="form-check">
+                  <label>
+                    <input class="form-check-input radio" type="radio" name="planoSaude" value="Sim"
+                      [(ngModel)]="ProntuarioIndividual.planoSaude" #planoSaude="ngModel" required />
+                    Sim
+                  </label>
+                </div>
+                <div class="form-check">
+                  <label>
+                    <input class="form-check-input radio" type="radio" name="planoSaude" value="Não"
+                      [(ngModel)]="ProntuarioIndividual.planoSaude" #planoSaude="ngModel" required />
+                    Não
+                  </label>
+                </div>
+                <div *ngIf="planoSaude.invalid && planoSaude.touched" class="text-danger">
+                  O campo Plano de saúde é obrigatório.
+                </div>
+              </div>
+              <div class="col-md-12">
+                <h6>Qual o plano de saúde?</h6>
+                <input type="text" class="form-control" name="qualPlanoSaude"
+                  [(ngModel)]="ProntuarioIndividual.qualPlanoSaude" #qualPlanoSaude="ngModel" required />
+                <div *ngIf="qualPlanoSaude.invalid && qualPlanoSaude.touched" class="text-danger">
+                  O campo Qual plano de saúde é obrigatório.
+                </div>
+              </div>
+
+              <h5>Já fez uso de alguma droga?</h5>
+              <div class="col-md-1">
+                <div class="form-check">
+                  <label>
+                    <input class="form-check-input radio" type="radio" name="usoDroga" value="Sim"
+                      [(ngModel)]="ProntuarioIndividual.usoDroga" #usoDroga="ngModel" required />
+                    Sim
+                  </label>
+                </div>
+                <div class="form-check">
+                  <label>
+                    <input class="form-check-input radio" type="radio" name="usoDroga" value="Não"
+                      [(ngModel)]="ProntuarioIndividual.usoDroga" #usoDroga="ngModel" required />
+                    Não
+                  </label>
+                </div>
+                <div *ngIf="usoDroga.invalid && usoDroga.touched" class="text-danger">
+                  O campo Usou alguma droga é obrigatório.
+                </div>
+              </div>
+
+              <h5>Drogas:</h5>
+              <div class="col-md-3">
+                <h6 for="validationCustom01" class="form-check-label"> Maconha </h6>
+              </div>
+              <div class="col-md-3">
+                <h6 for="validationCustom01" class="form-check-label"> Crack </h6>
+              </div>
+              <div class="col-md-3">
+                <h6 for="validationCustom01" class="form-check-label"> Cola </h6>
+              </div>
+              <div class="col-md-3">
+                <h6 for="validationCustom01" class="form-check-label">Álcool</h6>
+              </div>
+              <div class="col-md-3">
+                <h6 for="validationCustom01" class="form-check-label">Cocaína</h6>
+              </div>
+              <div class="col-md-3">
+                <h6 for="validationCustom01" class="form-check-label">Cigarro</h6>
+              </div>
+              <div class="col-md-3">
+                <h6 for="validationCustom01" class="form-check-label">Solvente</h6>
+              </div>
+              <div class="col-md-3">
+                <h6 for="validationCustom01" class="form-check-label">Heroína</h6>
+              </div>
+
+              <div class="col-md-12">
+                <h5>Entre as opções de drogas apresentadas, você já vez uso alguma?</h5>
+                <input type="text" class="form-control mt-2" id="distanciadosComQuem" name="quaisDrogasUsou"
+                  [(ngModel)]="ProntuarioIndividual.quaisDrogasUsou" #quaisDrogasUsou="ngModel" required />
+                <div *ngIf="quaisDrogasUsou.invalid && quaisDrogasUsou.touched" class="text-danger">
+                  O campo Quais drogas usou é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <h5>Histórico de uso:</h5>
+                <input type="text" class="form-control mt-2" id="distanciadosComQuem" name="historicoUso"
+                  [(ngModel)]="ProntuarioIndividual.historicoUso" #historicoUso="ngModel" required />
+                <div *ngIf="historicoUso.invalid && historicoUso.touched" class="text-danger">
+                  O campo Histórico de uso é obrigatório.
+                </div>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </mat-tab>
+
+      <mat-tab label="Saúde mental">
+        <fieldset class="border p-4">
+          <div class="container mt-2">
+            <div class="row g-3">
+              <h4>Saúde mental</h4>
+              <h5>Já recebeu atendimento psicologico?</h5>
+              <div class="col-md-1">
+                <div class="form-check">
+                  <label>
+                    <input class="form-check-input radio" type="radio" name="atendimentoPsicologico" value="Sim"
+                      [(ngModel)]="ProntuarioIndividual.atendimentoPsicologico" #atendimentoPsicologico="ngModel"
+                      required />
+                    Sim
+                  </label>
+                </div>
+                <div class="form-check">
+                  <label>
+                    <input class="form-check-input radio" type="radio" name="atendimentoPsicologico" value="Não"
+                      [(ngModel)]="ProntuarioIndividual.atendimentoPsicologico" #atendimentoPsicologico="ngModel"
+                      required />
+                    Não
+                  </label>
+                </div>
+                <div *ngIf="atendimentoPsicologico.invalid && atendimentoPsicologico.touched" class="text-danger">
+                  O campo Já recebeu atendimento psicologico é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <h6>Em qual local você recebeu este atendimento?</h6>
+                <input type="text" class="form-control" name="localAtendimentoPsicologico"
+                  [(ngModel)]="ProntuarioIndividual.localAtendimentoPsicologico" #localAtendimentoPsicologico="ngModel"
+                  required />
+                <div *ngIf="localAtendimentoPsicologico.invalid && localAtendimentoPsicologico.touched"
+                  class="text-danger">
+                  O campo Em qual local recebeu atendimento psicologico é obrigatório.
+                </div>
+              </div>
+
+              <h5>Já recebeu tratamento psiquiátrico?</h5>
+              <div class="col-md-1">
+                <div class="form-check">
+                  <label>
+                    <input class="form-check-input radio" type="radio" name="tratamentoPsiquiatrico" value="Sim"
+                      [(ngModel)]="ProntuarioIndividual.tratamentoPsiquiatrico" #tratamentoPsiquiatrico="ngModel"
+                      required />
+                    Sim
+                  </label>
+                </div>
+                <div class="form-check">
+                  <label>
+                    <input class="form-check-input radio" type="radio" name="tratamentoPsiquiatrico" value="Não"
+                      [(ngModel)]="ProntuarioIndividual.tratamentoPsiquiatrico" #tratamentoPsiquiatrico="ngModel"
+                      required />
+                    Não
+                  </label>
+                </div>
+                <div *ngIf="tratamentoPsiquiatrico.invalid && tratamentoPsiquiatrico.touched" class="text-danger">
+                  O campo Já recebeu tratamento psiquiátrico é obrigatório.
+                </div>
+              </div>
+              <div class="col-md-12">
+                <h6>Em qual local você recebeu este tratamento?</h6>
+                <input type="text" class="form-control" name="localTratamentoPsiquiatrico"
+                  [(ngModel)]="ProntuarioIndividual.localTratamentoPsiquiatrico" #localTratamentoPsiquiatrico="ngModel"
+                  required />
+                <div *ngIf="localTratamentoPsiquiatrico.invalid && localTratamentoPsiquiatrico.touched"
+                  class="text-danger">
+                  O campo Em qual local recebeu tratamento psiquiátrico é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <h5>Toma algum tipo de medicamento?</h5>
+                <input type="text" class="form-control mt-2" name="tomaAlgumTipoMedicamento"
+                  [(ngModel)]="ProntuarioIndividual.tomaAlgumTipoMedicamento" #tomaAlgumTipoMedicamento="ngModel"
+                  required />
+                <div *ngIf="tomaAlgumTipoMedicamento.invalid && tomaAlgumTipoMedicamento.touched" class="text-danger">
+                  O campo Toma algum tipo de medicamento é obrigatório.
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <h5>Motivo do encaminhamento psicológo?</h5>
+                <input type="text" class="form-control mt-2" name="motivoEncaminhamentoPsicologico"
+                  [(ngModel)]="ProntuarioIndividual.motivoEncaminhamentoPsicologico"
+                  #motivoEncaminhamentoPsicologico="ngModel" required />
+                <div *ngIf="motivoEncaminhamentoPsicologico.invalid && motivoEncaminhamentoPsicologico.touched"
+                  class="text-danger">
+                  O campo Motivo do encaminhamento psicológo é obrigatório.
+                </div>
+              </div>
+            </div>
+          </div><br>
+
+          <div class="col-md-12">
+            <button type="submit" class="btn btn-primary">
+              Enviar
+            </button>
+          </div>
+        </fieldset>
+      </mat-tab>
+    </mat-tab-group>
+  </form>
+</div>

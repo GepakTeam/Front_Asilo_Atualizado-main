@@ -1,0 +1,38 @@
+<section class="container">
+  <div class="login-container">
+    <div class="form-container">
+      <img src="assets/img/idosos2_fundo.png"  class="imagem"/>
+      
+
+
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+       <div class="card-login">
+          <h1> Login </h1>
+              <div class="textfield">
+                  <input type="email" formControlName="email" placeholder="Usuário"
+                />
+              </div>
+              <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+                Email inválido
+              </div>
+
+              <div class="textfield">
+                  <input formControlName="password" type="password" name="senha" placeholder="Senha">
+              </div>
+              <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+                A senha é obrigatória
+              </div>
+
+          <button type="submit" [disabled]="!loginForm.valid" class="btn-login">Entrar</button>
+            <div *ngIf="loginError" class="error">
+              Erro de login: Email ou senha inválidos
+            </div>
+       </div>
+      </form>
+
+    </div>
+  </div>
+</section>
+  
+
+

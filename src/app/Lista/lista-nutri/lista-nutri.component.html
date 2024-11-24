@@ -1,0 +1,23 @@
+<app-navbar></app-navbar>
+<div class="container-fluid">
+    <table class="table" *ngIf="nutricionista">
+        <thead>
+            <tr class="table">
+                <th scope="col">Nome</th>
+                <th scope="col">Data Nascimento</th>
+                <th scope="col">Data Exame</th>
+                <th scope="col">Mais Informações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="table" *ngFor="let nut of nutricionista">
+                <td class="">{{ nut.nome }}</td>
+                <td class="">{{ nut.idade }}</td>
+                <td class="">{{ nut.estadoCivil }}</td>
+                <td class="detalhes">
+                    <button type="button" class="btn btn-info" value="Detalhes" href="./listaCompleta">Detalhes</button>
+                </td>  
+            </tr>
+        </tbody>
+    </table>
+</div>

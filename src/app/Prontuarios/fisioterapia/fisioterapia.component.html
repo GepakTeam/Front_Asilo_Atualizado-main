@@ -1,0 +1,1549 @@
+<app-navbar></app-navbar>
+
+<div class="content">
+
+    <!-- Mensagem geral de erro -->
+    <div *ngIf="showErrorCard" class="card text-bg-danger error-card">
+        <div class="card-header">Erro</div>
+        <div class="card-body">
+            <h5 class="card-title">Envio Inválido</h5>
+            <p class="card-text">Por favor, preencha todos os campos obrigatórios antes de enviar.</p>
+        </div>
+    </div>
+
+    <!-- Card de Confirmação de Envio -->
+    <div *ngIf="showSuccessCard" class="card text-bg-success success-card">
+        <div class="card-header">Sucesso</div>
+        <div class="card-body">
+            <h5 class="card-title">Envio Bem-Sucedido</h5>
+            <p class="card-text">Os dados foram enviados com sucesso!</p>
+        </div>
+    </div>
+
+    <form #form="ngForm" (ngSubmit)="ProntFisioterapia()" class="row g-3">
+        <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+            <mat-tab label="Dados Pessoais">
+                <fieldset class="border p-4">
+                    <div class="container mt-2 ">
+                        <div class="row g-3">
+                            <h4 class=" col-md-12 w-auto">Avaliação Fisioterapeuta</h4>
+                            <div class="col-md-6">
+                                <label>Data Avaliação</label>
+                                <input type="date" class="form-control" name="dataAvaliacao"
+                                    [(ngModel)]="ProntuarioFisioterapeuta.dataAvaliacao" #dataAvaliacao="ngModel"
+                                    required />
+                                <div *ngIf="dataAvaliacao.invalid && dataAvaliacao.touched" class="text-danger">O campo
+                                    é obrigatório.
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-12">
+                                <h5>Dados Pessoais</h5>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label>Nome</label>
+                                <input type="text" class="form-control" name="nome"
+                                    [(ngModel)]="ProntuarioFisioterapeuta.nome" #nome="ngModel" required />
+                                <div *ngIf="nome.invalid && nome.touched" class="text-danger">O campo é obrigatório.
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <h6 for="inputSex" class="form-label">Sexo</h6><br />
+                                <div class="form-check form-check-inline">
+                                    <label>
+                                        <input class="form-check-input radio" type="radio" name="sexo" value="Feminino"
+                                            [(ngModel)]="ProntuarioFisioterapeuta.sexo" #sexo="ngModel" required />
+                                        Feminino
+                                    </label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <label>
+                                        <input class="form-check-input radio" type="radio" name="sexo" value="Masculino"
+                                            [(ngModel)]="ProntuarioFisioterapeuta.sexo" #sexo="ngModel" required />
+                                        Masculino
+                                    </label>
+                                </div>
+                                <div *ngIf="sexo.invalid && sexo.touched" class="text-danger">O campo é obrigatório.
+                                </div>
+                            </div>
+
+                            <div class="col-md-2">
+                                <label>Idade</label>
+                                <input type="text" class="form-control" name="idade"
+                                    [(ngModel)]="ProntuarioFisioterapeuta.idade" #idade="ngModel" required />
+                                <div *ngIf="idade.invalid && idade.touched" class="text-danger">O campo é obrigatório.
+                                </div>
+                            </div>
+
+                            <div class="col-md-2">
+                                <label>Data de Nascimento</label>
+                                <input type="date" class="form-control" name="dataNascimento"
+                                    [(ngModel)]="ProntuarioFisioterapeuta.dataNascimento" #dataNascimento="ngModel"
+                                    required />
+                                <div *ngIf="dataNascimento.invalid && dataNascimento.touched" class="text-danger">O
+                                    campo é obrigatório.
+                                </div>
+                            </div>
+
+
+
+                            <div class="col-md-7">
+                                <h6 for="inputSex" class="form-label">Estado Civil</h6><br />
+                                <div class="form-check form-check-inline">
+                                    <label>
+                                        <input class="form-check-input radio" type="radio" name="estadoCivil"
+                                            value="Solteiro" [(ngModel)]="ProntuarioFisioterapeuta.estadoCivil"
+                                            #estadoCivil="ngModel" required />
+                                        Solteiro
+                                    </label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <label>
+                                        <input class="form-check-input radio" type="radio" name="estadoCivil"
+                                            value="Casado" [(ngModel)]="ProntuarioFisioterapeuta.estadoCivil"
+                                            #estadoCivil="ngModel" required /> Casado
+                                    </label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <label>
+                                        <input class="form-check-input radio" type="radio" name="estadoCivil"
+                                            value="Separado" [(ngModel)]="ProntuarioFisioterapeuta.estadoCivil"
+                                            #estadoCivil="ngModel" required />
+                                        Separado
+                                    </label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <label>
+                                        <input class="form-check-input radio" type="radio" name="estadoCivil"
+                                            value="Divorciado" [(ngModel)]="ProntuarioFisioterapeuta.estadoCivil"
+                                            #estadoCivil="ngModel" required />
+                                        Divorciado
+                                    </label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <label>
+                                        <input class="form-check-input radio" type="radio" name="estadoCivil"
+                                            value="Viúvo" [(ngModel)]="ProntuarioFisioterapeuta.estadoCivil"
+                                            #estadoCivil="ngModel" required /> Viúvo
+                                    </label>
+                                </div>
+                                <div *ngIf="estadoCivil.invalid && estadoCivil.touched" class="text-danger">O campo é
+                                    obrigatório.
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <h6 for="celular" class="form-label">Telefone</h6>
+                                <input type="text" class="form-control" placeholder="(xx) xxxxx-xxxx" maxlength="15"
+                                    name="telefone" [(ngModel)]="ProntuarioFisioterapeuta.telefone" #telefone="ngModel"
+                                    required />
+                                <script>
+                                    // Adiciona a máscara ao campo de celular
+                                    document
+                                        .getElementById("celular")
+                                        .addEventListener("input", function (e) {
+                                            var value = e.target.value.replace(/\D/g, "");
+                                            var formattedValue = "(" + value.substring(0, 2);
+                                            if (value.length > 2) {
+                                                formattedValue += ") " + value.substring(2, 5);
+                                            }
+                                            if (value.length > 6) {
+                                                formattedValue += "-" + value.substring(5, 9);
+                                            }
+                                            e.target.value = formattedValue;
+                                        });
+                                </script>
+                                <div *ngIf="telefone.invalid && telefone.touched" class="text-danger">O campo é
+                                    obrigatório.
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <label>Endereço</label>
+                                <input type="text" class="form-control" name="endereco"
+                                    [(ngModel)]="ProntuarioFisioterapeuta.endereco" #endereco="ngModel" required />
+                                <div *ngIf="endereco.invalid && endereco.touched" class="text-danger">O campo é
+                                    obrigatório.
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label>Exames Complementares</label>
+                                <input type="text" class="form-control" name="examesComplementares"
+                                    [(ngModel)]="ProntuarioFisioterapeuta.examesComplementares"
+                                    #examesComplementares="ngModel" required />
+                                <div *ngIf="examesComplementares.invalid && examesComplementares.touched"
+                                    class="text-danger">O campo é obrigatório.
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label>Medicamentos</label>
+                                <input type="text" class="form-control" name="medicamentos"
+                                    [(ngModel)]="ProntuarioFisioterapeuta.medicamentos" #medicamentos="ngModel"
+                                    required />
+                                <div *ngIf="medicamentos.invalid && medicamentos.touched" class="text-danger">O campo é
+                                    obrigatório.
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label>Diagnóstico Clínico-Patológico</label>
+                                <input type="text" class="form-control" name="diagnosticoClinicoPatologico"
+                                    [(ngModel)]="ProntuarioFisioterapeuta.diagnosticoClinicoPatologico"
+                                    #diagnosticoClinicoPatologico="ngModel" required />
+                                <div *ngIf="diagnosticoClinicoPatologico.invalid && diagnosticoClinicoPatologico.touched"
+                                    class="text-danger">O campo é obrigatório.
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label>Queixa Principal</label>
+                                <textarea cols="10" rows="4" wrap="hard" class="form-control" name="queixaPrincipal"
+                                    [(ngModel)]="ProntuarioFisioterapeuta.queixaPrincipal" #queixaPrincipal="ngModel"
+                                    required></textarea>
+                                <div *ngIf="queixaPrincipal.invalid && queixaPrincipal.touched" class="text-danger">O
+                                    campo é obrigatório.
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label>H.M.A</label>
+                                <textarea cols="10" rows="4" wrap="hard" class="form-control" name="hma"
+                                    [(ngModel)]="ProntuarioFisioterapeuta.hma" #hma="ngModel" required></textarea>
+                                <div *ngIf="hma.invalid && hma.touched" class="text-danger">O campo é obrigatório.
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label>A.V.D</label>
+                                <textarea cols="10" rows="4" wrap="hard" class="form-control" name="avd"
+                                    [(ngModel)]="ProntuarioFisioterapeuta.avd" #avd="ngModel" required></textarea>
+                                <div *ngIf="avd.invalid && avd.touched" class="text-danger">O campo é obrigatório.
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label>Aparelho Locomotor</label>
+                                <input type="text" class="form-control" name="aparelhoLocomotor"
+                                    [(ngModel)]="ProntuarioFisioterapeuta.aparelhoLocomotor"
+                                    #aparelhoLocomotor="ngModel" required />
+                                <div *ngIf="aparelhoLocomotor.invalid && aparelhoLocomotor.touched" class="text-danger">
+                                    O campo é obrigatório.
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label>Cardio-respiratório</label>
+                                <input type="text" class="form-control" name="aparelhoCardioRespiratorio"
+                                    [(ngModel)]="ProntuarioFisioterapeuta.aparelhoCardioRespiratorio"
+                                    #aparelhoCardioRespiratorio="ngModel" required />
+                                <div *ngIf="aparelhoCardioRespiratorio.invalid && aparelhoCardioRespiratorio.touched"
+                                    class="text-danger">O campo é obrigatório.
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label>Cardio-vascular</label>
+                                <input type="text" class="form-control" name="aparelhoCardioVascular"
+                                    [(ngModel)]="ProntuarioFisioterapeuta.aparelhoCardioVascular"
+                                    #aparelhoCardioVascular="ngModel" required />
+                                <div *ngIf="aparelhoCardioVascular.invalid && aparelhoCardioVascular.touched"
+                                    class="text-danger">O campo é obrigatório.
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label>Ginecológico</label>
+                                <input type="text" class="form-control" name="ginecologico"
+                                    [(ngModel)]="ProntuarioFisioterapeuta.ginecologico" #ginecologico="ngModel"
+                                    required />
+                                <div *ngIf="ginecologico.invalid && ginecologico.touched" class="text-danger">O campo é
+                                    obrigatório.
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label>Outros</label>
+                                <textarea cols="10" rows="4" wrap="hard" class="form-control" name="outros"
+                                    [(ngModel)]="ProntuarioFisioterapeuta.outros" #outros="ngModel" required></textarea>
+                                <div *ngIf="outros.invalid && outros.touched" class="text-danger">O campo é obrigatório.
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label>Dificuldade De Comunicação</label><br>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input radio" type="radio" name="dificuldadeComunicacao"
+                                        value="Sim" [(ngModel)]="ProntuarioFisioterapeuta.dificuldadeComunicacao"
+                                        #dificuldadeComunicacao="ngModel" required />
+                                    Sim
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input radio" type="radio" name="dificuldadeComunicacao"
+                                        value="Não" [(ngModel)]="ProntuarioFisioterapeuta.dificuldadeComunicacao"
+                                        #dificuldadeComunicacao="ngModel" required />
+                                    Não
+                                </div>
+                                <div *ngIf="dificuldadeComunicacao.invalid && dificuldadeComunicacao.touched"
+                                    class="text-danger">O campo é obrigatório.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </mat-tab>
+            <mat-tab label="Medicamentos">
+                <fieldset class="border p-4">
+                    <div class="container mt-2 ">
+                        <h4 class="w-auto">Avaliação Fisioterapeuta</h4>
+                        <div class="row g-3">
+
+                            <div class="col-md-12">
+                                <h5>Medicamentos</h5>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label>Tipo de medicamento usado</label>
+                                <input type="text" class="form-control" name="tipoMedicamento"
+                                    [(ngModel)]="ProntuarioFisioterapeuta.tipoMedicamento" #tipoMedicamento="ngModel"
+                                    required />
+                                <div *ngIf="tipoMedicamento.invalid && tipoMedicamento.touched" class="text-danger">O
+                                    campo é obrigatório.
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-6">
+                                <label>Dosagem</label>
+                                <input type="text" class="form-control" name="dosagem"
+                                    [(ngModel)]="ProntuarioFisioterapeuta.dosagem" #dosagem="ngModel" required />
+                                <div *ngIf="dosagem.invalid && dosagem.touched" class="text-danger">O campo é
+                                    obrigatório.
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label>Frequência</label>
+                                <input type="text" class="form-control" name="frequencia"
+                                    [(ngModel)]="ProntuarioFisioterapeuta.frequencia" #frequencia="ngModel" required />
+                                <div *ngIf="frequencia.invalid && frequencia.touched" class="text-danger">O campo é
+                                    obrigatório.
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label>Remédio sem prescrição</label>
+                                <input type="text" class="form-control" name="remedioSemPrescricao"
+                                    [(ngModel)]="ProntuarioFisioterapeuta.remedioSemPrescricao"
+                                    #remedioSemPrescricao="ngModel" required />
+                                <div *ngIf="remedioSemPrescricao.invalid && remedioSemPrescricao.touched"
+                                    class="text-danger">O campo é obrigatório.
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <label>Habilidade para manusear o medicamento</label>
+                                <input type="text" class="form-control" name="habilidadeManusear"
+                                    [(ngModel)]="ProntuarioFisioterapeuta.habilidadeManusear"
+                                    #habilidadeManusear="ngModel" required />
+                                <div *ngIf="habilidadeManusear.invalid && habilidadeManusear.touched"
+                                    class="text-danger">O campo é obrigatório.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </mat-tab>
+            <mat-tab label="História Nutricional">
+                <fieldset class="border p-4">
+                    <div class="container mt-2 ">
+                        <h4 class="w-auto">Avaliação Fisioterapeuta</h4>
+                        <div class="row g-3">
+
+                            <div class="col-md-12">
+                                <h5>História Nutricional</h5>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label>Frequência das Refeições</label>
+                                <input type="text" class="form-control" name="frequenciaRefeicoes"
+                                    [(ngModel)]="ProntuarioFisioterapeuta.frequenciaRefeicoes"
+                                    #frequenciaRefeicoes="ngModel" required />
+                                <div *ngIf="frequenciaRefeicoes.invalid && frequenciaRefeicoes.touched"
+                                    class="text-danger">O campo é obrigatório.
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Dieta especial</label>
+                                <input type="text" class="form-control" name="dietaEspecial"
+                                    [(ngModel)]="ProntuarioFisioterapeuta.dietaEspecial" #dietaEspecial="ngModel"
+                                    required />
+                                <div *ngIf="dietaEspecial.invalid && dietaEspecial.touched" class="text-danger">O campo
+                                    é obrigatório.
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Ingestão de ácool</label>
+                                <input type="text" class="form-control" name="ingestaoAlcool"
+                                    [(ngModel)]="ProntuarioFisioterapeuta.ingestaoAlcool" #ingestaoAlcool="ngModel"
+                                    required />
+                                <div *ngIf="ingestaoAlcool.invalid && ingestaoAlcool.touched" class="text-danger">O
+                                    campo é obrigatório.
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Ingestão hídrica</label>
+                                <input type="text" class="form-control" name="ingestaoHidrica"
+                                    [(ngModel)]="ProntuarioFisioterapeuta.ingestaoHidrica" #ingestaoHidrica="ngModel"
+                                    required />
+                                <div *ngIf="ingestaoHidrica.invalid && ingestaoHidrica.touched" class="text-danger">O
+                                    campo é obrigatório.
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Problemas Dentários - Usa prótese</label><br>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input radio" type="radio" name="usaProtese" value="Sim"
+                                        [(ngModel)]="ProntuarioFisioterapeuta.usaProtese" #usaProtese="ngModel"
+                                        required /> Sim
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input radio" type="radio" name="usaProtese" value="Não"
+                                        [(ngModel)]="ProntuarioFisioterapeuta.usaProtese" #usaProtese="ngModel"
+                                        required /> Não
+                                </div>
+                                <div *ngIf="usaProtese.invalid && usaProtese.touched" class="text-danger">O campo é
+                                    obrigatório.
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <h6 for="inputSex" class="form-label">Tem apetite</h6><br />
+                                <div class="form-check form-check-inline">
+                                    <label>
+                                        <input class="form-check-input radio" type="radio" name="apetite" value="Sim"
+                                            [(ngModel)]="ProntuarioFisioterapeuta.apetite" #apetite="ngModel"
+                                            required /> Sim
+                                    </label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <label>
+                                        <input class="form-check-input radio" type="radio" name="apetite" value="Não"
+                                            [(ngModel)]="ProntuarioFisioterapeuta.apetite" #apetite="ngModel"
+                                            required /> Não
+                                    </label>
+                                </div><br>
+                                <div *ngIf="apetite.invalid && apetite.touched" class="text-danger">O campo é
+                                    obrigatório.
+                                </div>
+                                <div class="col-md-12">
+                                    <label>Por que</label>
+                                    <input type="text" class="form-control" name="porqueApetite"
+                                        [(ngModel)]="ProntuarioFisioterapeuta.porqueApetite" #porqueApetite="ngModel"
+                                        required />
+                                    <div *ngIf="porqueApetite.invalid && porqueApetite.touched" class="text-danger">O
+                                        campo é obrigatório.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </mat-tab>
+            <mat-tab label="História Psiquiátrica">
+                <fieldset class="border p-4">
+                    <div class="container mt-2 ">
+                        <h4 class="w-auto">Avaliação Fisioterapeuta</h4>
+                        <div class="row g-3">
+
+                            <div class="col-md-12">
+                                <h5>História Psiquiátrica:</h5>
+                            </div>
+
+                            <div class="col-md-12">
+                                <label>Demência (Mini Teste do Estado Mental)</label>
+                                <input type="text" class="form-control" name="demencia"
+                                    [(ngModel)]="ProntuarioFisioterapeuta.demencia" #demencia="ngModel" required />
+                                <div *ngIf="demencia.invalid && demencia.touched" class="text-danger">O campo é
+                                    obrigatório.
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <label>Escala de depressão em Geriatria</label>
+                                <input type="text" class="form-control" name="escalaDepressao"
+                                    [(ngModel)]="ProntuarioFisioterapeuta.escalaDepressao" #escalaDepressao="ngModel"
+                                    required />
+                                <div *ngIf="escalaDepressao.invalid && escalaDepressao.touched" class="text-danger">O
+                                    campo é obrigatório.
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <label>Estado Emocional</label>
+                                <input type="text" class="form-control" name="estadoEmocional"
+                                    [(ngModel)]="ProntuarioFisioterapeuta.estadoEmocional" #estadoEmocional="ngModel"
+                                    required />
+                                <div *ngIf="estadoEmocional.invalid && estadoEmocional.touched" class="text-danger">O
+                                    campo é obrigatório.
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </fieldset>
+            </mat-tab>
+            <mat-tab label="Sinais Vitais">
+                <fieldset class="border p-4">
+                    <div class="container mt-2 ">
+                        <h4 class="w-auto">Avaliação Fisioterapeuta</h4>
+                        <div class="row g-3">
+
+                            <div class="col-md-12">
+                                <h5>Sinais Vitais:</h5>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label>Peso</label>
+                                <input type="text" class="form-control" name="peso"
+                                    [(ngModel)]="ProntuarioFisioterapeuta.peso" #peso="ngModel" required />
+                                <div *ngIf="peso.invalid && peso.touched" class="text-danger">O campo é obrigatório.
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label>Altura</label>
+                                <input type="text" class="form-control" name="altura"
+                                    [(ngModel)]="ProntuarioFisioterapeuta.altura" #altura="ngModel" required />
+                                <div *ngIf="altura.invalid && altura.touched" class="text-danger">O campo é obrigatório.
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label>P.A</label><br>
+                                <div class="form-check form-check-inline">
+                                    <input type="text" class="form-control" name="pa"
+                                        [(ngModel)]="ProntuarioFisioterapeuta.pa" #pa="ngModel" required />
+                                    <label for="inputEmail4" class="form-label" style="padding-left: 4px;"> mmHg
+                                    </label>
+                                </div>
+                                <div *ngIf="pa.invalid && pa.touched" class="text-danger">O campo é obrigatório.
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label>Ausculta Cardíaca</label>
+                                <input type="text" class="form-control" name="auscultaCardiaca"
+                                    [(ngModel)]="ProntuarioFisioterapeuta.auscultaCardiaca" #auscultaCardiaca="ngModel"
+                                    required />
+                                <div *ngIf="auscultaCardiaca.invalid && auscultaCardiaca.touched" class="text-danger">O
+                                    campo é obrigatório.
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label>Frequência Cardíaca</label>
+                                <input type="text" class="form-control" name="frequenciaCardiaca"
+                                    [(ngModel)]="ProntuarioFisioterapeuta.frequenciaCardiaca"
+                                    #frequenciaCardiaca="ngModel" required />
+                                <div *ngIf="frequenciaCardiaca.invalid && frequenciaCardiaca.touched"
+                                    class="text-danger">O campo é obrigatório.
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label>Ausculta Pulmonar</label>
+                                <input type="text" class="form-control" name="auscultaPulmonar"
+                                    [(ngModel)]="ProntuarioFisioterapeuta.auscultaPulmonar" #auscultaPulmonar="ngModel"
+                                    required />
+                                <div *ngIf="auscultaPulmonar.invalid && auscultaPulmonar.touched" class="text-danger">O
+                                    campo é obrigatório.
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Frequência Respiratória</label>
+                                <input type="text" class="form-control" name="frequenciaRespiratoria"
+                                    [(ngModel)]="ProntuarioFisioterapeuta.frequenciaRespiratoria"
+                                    #frequenciaRespiratoria="ngModel" required />
+                                <div *ngIf="frequenciaRespiratoria.invalid && frequenciaRespiratoria.touched"
+                                    class="text-danger">O campo é obrigatório.
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Padrão Respiratório</label>
+                                <input type="text" class="form-control" name="padraoRespiratorio"
+                                    [(ngModel)]="ProntuarioFisioterapeuta.padraoRespiratorio"
+                                    #padraoRespiratorio="ngModel" required />
+                                <div *ngIf="padraoRespiratorio.invalid && padraoRespiratorio.touched"
+                                    class="text-danger">O campo é obrigatório.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </mat-tab>
+            <mat-tab label="Goniometria">
+                <fieldset class="border p-4">
+                    <div class="container mt-2 ">
+                        <h4 class="w-auto">Avaliação Fisioterapeuta</h4>
+                        <div class="row g-3">
+
+                            <div class="col-md-12">
+                                <h5>Goniometria:</h5>
+                            </div>
+
+                            <div class="col-md-12">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Articulação</th>
+                                            <th>Movimentos</th>
+                                            <th>VR*</th>
+                                            <th>ADM Direito</th>
+                                            <th>ADM Esquerdo</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td rowspan="6">Ombro</td>
+                                            <td>Flexão</td>
+                                            <td><input class="form-control" type="text" name="ombroFlexaoVR" id=""
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.ombroFlexaoVR"
+                                                    #ombroFlexaoVR="ngModel" required>
+                                                <div *ngIf="ombroFlexaoVR.invalid && ombroFlexaoVR.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                            <td><input class="form-control" type="text" name="ombroFlexaoAdmDireito"
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.ombroFlexaoAdmDireito" id=""
+                                                    #ombroFlexaoAdmDireito="ngModel" required>
+                                                <div *ngIf="ombroFlexaoAdmDireito.invalid && ombroFlexaoAdmDireito.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                            <td><input class="form-control" type="text" name="ombroFlexaoAdmEsquerdo"
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.ombroFlexaoAdmEsquerdo" id=""
+                                                    #ombroFlexaoAdmEsquerdo="ngModel" required>
+                                                <div *ngIf="ombroFlexaoAdmEsquerdo.invalid && ombroFlexaoAdmEsquerdo.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Extensão</td>
+                                            <td><input class="form-control" type="text" name="ombroExtensaoVR"
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.ombroExtensaoVR" id=""
+                                                    #ombroExtensaoVR="ngModel" required>
+                                                <div *ngIf="ombroExtensaoVR.invalid && ombroExtensaoVR.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                            <td><input class="form-control" type="text" name="ombroExtensaoAdmDireito"
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.ombroExtensaoAdmDireito" id=""
+                                                    #ombroExtensaoAdmDireito="ngModel" required>
+                                                <div *ngIf="ombroExtensaoAdmDireito.invalid && ombroExtensaoAdmDireito.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                            <td><input class="form-control" type="text" name="ombroExtensaoAdmEsquerdo"
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.ombroExtensaoAdmEsquerdo"
+                                                    #ombroExtensaoAdmEsquerdo="ngModel" required id="">
+                                                <div *ngIf="ombroExtensaoAdmEsquerdo.invalid && ombroExtensaoAdmEsquerdo.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Adução</td>
+                                            <td><input class="form-control" type="text" name="ombroAducaoVR"
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.ombroAducaoVR" id=""
+                                                    #ombroAducaoVR="ngModel" required>
+                                                <div *ngIf="ombroAducaoVR.invalid && ombroAducaoVR.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                            <td><input class="form-control" type="text" name="ombroAducaoAdmDireito"
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.ombroAducaoAdmDireito" id=""
+                                                    #ombroAducaoAdmDireito="ngModel" required>
+                                                <div *ngIf="ombroAducaoAdmDireito.invalid && ombroAducaoAdmDireito.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                            <td><input class="form-control" type="text" name="ombroAducaoAdmEsquerdo"
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.ombroAducaoAdmEsquerdo" id=""
+                                                    #ombroAducaoAdmEsquerdo="ngModel" required>
+                                                <div *ngIf="ombroAducaoAdmEsquerdo.invalid && ombroAducaoAdmEsquerdo.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Abdução</td>
+                                            <td><input class="form-control" type="text" name="ombroAbducaoVR"
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.ombroAbducaoVR" id=""
+                                                    #ombroAbducaoVR="ngModel" required>
+                                                <div *ngIf="ombroAbducaoVR.invalid && ombroAbducaoVR.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                            <td><input class="form-control" type="text" name="ombroAbducaoAdmDireito"
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.ombroAbducaoAdmDireito" id=""
+                                                    #ombroAbducaoAdmDireito="ngModel" required>
+                                                <div *ngIf="ombroAbducaoAdmDireito.invalid && ombroAbducaoAdmDireito.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                            <td><input class="form-control" type="text" name="ombroAbducaoAdmEsquerdo"
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.ombroAbducaoAdmEsquerdo"
+                                                    #ombroAbducaoAdmEsquerdo="ngModel" required id="">
+                                                <div *ngIf="ombroAbducaoAdmEsquerdo.invalid && ombroAbducaoAdmEsquerdo.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Rot. Interna</td>
+                                            <td><input class="form-control" type="text" name="ombroRotInternaVR"
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.ombroRotInternaVR" id=""
+                                                    #ombroRotInternaVR="ngModel" required>
+                                                <div *ngIf="ombroRotInternaVR.invalid && ombroRotInternaVR.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                            <td><input class="form-control" type="text" name="ombroRotInternaAdmDireito"
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.ombroRotInternaAdmDireito"
+                                                    #ombroRotInternaAdmDireito="ngModel" required id="">
+                                                <div *ngIf="ombroRotInternaAdmDireito.invalid && ombroRotInternaAdmDireito.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                            <td><input class="form-control" type="text"
+                                                    name="ombroRotInternaAdmEsquerdo"
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.ombroRotInternaAdmEsquerdo"
+                                                    #ombroRotInternaAdmEsquerdo="ngModel" required id="">
+                                                <div *ngIf="ombroRotInternaAdmEsquerdo.invalid && ombroRotInternaAdmEsquerdo.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Rot. Externa</td>
+                                            <td><input class="form-control" type="text" name="ombroRotExternaVR"
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.ombroRotExternaVR" id=""
+                                                    #ombroRotExternaVR="ngModel" required>
+                                                <div *ngIf="ombroRotExternaVR.invalid && ombroRotExternaVR.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                            <td><input class="form-control" type="text" name="ombroRotExternaAdmDireito"
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.ombroRotExternaAdmDireito"
+                                                    #ombroRotExternaAdmDireito="ngModel" required id="">
+                                                <div *ngIf="ombroRotExternaAdmDireito.invalid && ombroRotExternaAdmDireito.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                            <td><input class="form-control" type="text"
+                                                    name="ombroRotExternaAdmEsquerdo"
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.ombroRotExternaAdmEsquerdo"
+                                                    #ombroRotExternaAdmEsquerdo="ngModel" required id="">
+                                                <div *ngIf="ombroRotExternaAdmEsquerdo.invalid && ombroRotExternaAdmEsquerdo.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="col-md-12">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Articulação</th>
+                                            <th>Movimentos</th>
+                                            <th>VR*</th>
+                                            <th>ADM Direito</th>
+                                            <th>ADM Esquerdo</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td rowspan="2">Cotovelo</td>
+                                            <td>Flexão</td>
+                                            <td><input class="form-control" type="text" name="cotoveloFlexaoVR"
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.cotoveloFlexaoVR" id=""
+                                                    #cotoveloFlexaoVR="ngModel" required>
+                                                <div *ngIf="cotoveloFlexaoVR.invalid && cotoveloFlexaoVR.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                            <td><input class="form-control" type="text" name="cotoveloFlexaoAdmDireito"
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.cotoveloFlexaoAdmDireito"
+                                                    #cotoveloFlexaoAdmDireito="ngModel" required id="">
+                                                <div *ngIf="cotoveloFlexaoAdmDireito.invalid && cotoveloFlexaoAdmDireito.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                            <td><input class="form-control" type="text" name="cotoveloFlexaoAdmEsquerdo"
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.cotoveloFlexaoAdmEsquerdo"
+                                                    #cotoveloFlexaoAdmEsquerdo="ngModel" required id="">
+                                                <div *ngIf="cotoveloFlexaoAdmEsquerdo.invalid && cotoveloFlexaoAdmEsquerdo.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Extensão</td>
+                                            <td><input class="form-control" type="text" name="cotoveloExtensaoVR"
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.cotoveloExtensaoVR" id=""
+                                                    #cotoveloExtensaoVR="ngModel" required>
+                                                <div *ngIf="cotoveloExtensaoVR.invalid && cotoveloExtensaoVR.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                            <td><input class="form-control" type="text"
+                                                    name="cotoveloExtensaoAdmDireito"
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.cotoveloExtensaoAdmDireito"
+                                                    #cotoveloExtensaoAdmDireito="ngModel" required id="">
+                                                <div *ngIf="cotoveloExtensaoAdmDireito.invalid && cotoveloExtensaoAdmDireito.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                            <td><input class="form-control" type="text"
+                                                    name="cotoveloExtensaoAdmEsquerdo"
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.cotoveloExtensaoAdmEsquerdo"
+                                                    #cotoveloExtensaoAdmEsquerdo="ngModel" required id="">
+                                                <div *ngIf="cotoveloExtensaoAdmEsquerdo.invalid && cotoveloExtensaoAdmEsquerdo.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td rowspan="4">Punho</td>
+                                            <td>Extensão</td>
+                                            <td><input class="form-control" type="text" name="punhoExtensaoVR"
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.punhoExtensaoVR" id=""
+                                                    #punhoExtensaoVR="ngModel" required>
+                                                <div *ngIf="punhoExtensaoVR.invalid && punhoExtensaoVR.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                            <td><input class="form-control" type="text" name="punhoExtensaoAdmDireito"
+                                                    #punhoExtensaoAdmDireito="ngModel" required
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.punhoExtensaoAdmDireito"
+                                                    id="">
+                                                <div *ngIf="punhoExtensaoAdmDireito.invalid && punhoExtensaoAdmDireito.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                            <td><input class="form-control" type="text" name="punhoExtensaoAdmEsquerdo"
+                                                    #punhoExtensaoAdmEsquerdo="ngModel" required
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.punhoExtensaoAdmEsquerdo"
+                                                    id="">
+                                                <div *ngIf="punhoExtensaoAdmEsquerdo.invalid && punhoExtensaoAdmEsquerdo.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Flexão</td>
+                                            <td><input class="form-control" type="text" name="punhoFlexaoVR"
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.punhoFlexaoVR" id=""
+                                                    #punhoFlexaoVR="ngModel" required>
+                                                <div *ngIf="punhoFlexaoVR.invalid && punhoFlexaoVR.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                            <td><input class="form-control" type="text" name="punhoFlexaoAdmDireito"
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.punhoFlexaoAdmDireito" id=""
+                                                    #punhoFlexaoAdmDireito="ngModel" required>
+                                                <div *ngIf="punhoFlexaoAdmDireito.invalid && punhoFlexaoAdmDireito.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                            <td><input class="form-control" type="text" name="punhoFlexaoAdmEsquerdo"
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.punhoFlexaoAdmEsquerdo" id=""
+                                                    #punhoFlexaoAdmEsquerdo="ngModel" required>
+                                                <div *ngIf="punhoFlexaoAdmEsquerdo.invalid && punhoFlexaoAdmEsquerdo.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Desvio Ulnar</td>
+                                            <td><input class="form-control" type="text" name="punhoDesvioUlnarVR"
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.punhoDesvioUlnarVR" id=""
+                                                    #punhoDesvioUlnarVR="ngModel" required>
+                                                <div *ngIf="punhoDesvioUlnarVR.invalid && punhoDesvioUlnarVR.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                            <td><input class="form-control" type="text"
+                                                    name="punhoDesvioUlnarAdmDireito"
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.punhoDesvioUlnarAdmDireito"
+                                                    #punhoDesvioUlnarAdmDireito="ngModel" required id="">
+                                                <div *ngIf="punhoDesvioUlnarAdmDireito.invalid && punhoDesvioUlnarAdmDireito.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                            <td><input class="form-control" type="text"
+                                                    name="punhoDesvioUlnarAdmEsquerdo"
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.punhoDesvioUlnarAdmEsquerdo"
+                                                    #punhoDesvioUlnarAdmEsquerdo="ngModel" required id="">
+                                                <div *ngIf="punhoDesvioUlnarAdmEsquerdo.invalid && punhoDesvioUlnarAdmEsquerdo.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Desvio Radial</td>
+                                            <td><input class="form-control" type="text" name="punhoDesvioRadialVR"
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.punhoDesvioRadialVR" id=""
+                                                    #punhoDesvioRadialVR="ngModel" required>
+                                                <div *ngIf="punhoDesvioRadialVR.invalid && punhoDesvioRadialVR.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                            <td><input class="form-control" type="text"
+                                                    name="punhoDesvioRadialAdmDireito"
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.punhoDesvioRadialAdmDireito"
+                                                    #punhoDesvioRadialAdmDireito="ngModel" required>
+                                                <div *ngIf="punhoDesvioRadialAdmDireito.invalid && punhoDesvioRadialAdmDireito.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                            <td><input class="form-control" type="text"
+                                                    name="punhoDesvioRadialAdmEsquerdo"
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.punhoDesvioRadialAdmEsquerdo"
+                                                    #punhoDesvioRadialAdmEsquerdo="ngModel" required>
+                                                <div *ngIf="punhoDesvioRadialAdmEsquerdo.invalid && punhoDesvioRadialAdmEsquerdo.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td rowspan="6">Quadril</td>
+                                            <td>Flexão</td>
+                                            <td><input class="form-control" type="text" name="quadrilFlexaoVR"
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.quadrilFlexaoVR"
+                                                    #quadrilFlexaoVR="ngModel" required>
+                                                <div *ngIf="quadrilFlexaoVR.invalid && quadrilFlexaoVR.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                            <td><input class="form-control" type="text" name="quadrilFlexaoAdmDireito"
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.quadrilFlexaoAdmDireito"
+                                                    #quadrilFlexaoAdmDireito="ngModel" required>
+                                                <div *ngIf="quadrilFlexaoAdmDireito.invalid && quadrilFlexaoAdmDireito.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                            <td><input class="form-control" type="text" name="quadrilFlexaoAdmEsquerdo"
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.quadrilFlexaoAdmEsquerdo"
+                                                    #quadrilFlexaoAdmEsquerdo="ngModel" required>
+                                                <div *ngIf="quadrilFlexaoAdmEsquerdo.invalid && quadrilFlexaoAdmEsquerdo.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Extensão</td>
+                                            <td><input class="form-control" type="text" name="quadrilExtensaoVR"
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.quadrilExtensaoVR"
+                                                    #quadrilExtensaoVR="ngModel" required>
+                                                <div *ngIf="quadrilExtensaoVR.invalid && quadrilExtensaoVR.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                            <td><input class="form-control" type="text" name="quadrilExtensaoAdmDireito"
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.quadrilExtensaoAdmDireito"
+                                                    #quadrilExtensaoAdmDireito="ngModel" required>
+                                                <div *ngIf="quadrilExtensaoAdmDireito.invalid && quadrilExtensaoAdmDireito.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                            <td><input class="form-control" type="text"
+                                                    name="quadrilExtensaoAdmEsquerdo"
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.quadrilExtensaoAdmEsquerdo"
+                                                    #quadrilExtensaoAdmEsquerdo="ngModel" required>
+                                                <div *ngIf="quadrilExtensaoAdmEsquerdo.invalid && quadrilExtensaoAdmEsquerdo.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Adução</td>
+                                            <td><input class="form-control" type="text" name="quadrilAducaoVR"
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.quadrilAducaoVR"
+                                                    #quadrilAducaoVR="ngModel" required>
+                                                <div *ngIf="quadrilAducaoVR.invalid && quadrilAducaoVR.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                            <td><input class="form-control" type="text" name="quadrilAducaoAdmDireito"
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.quadrilAducaoAdmDireito"
+                                                    #quadrilAducaoAdmDireito="ngModel" required>
+                                                <div *ngIf="quadrilAducaoAdmDireito.invalid && quadrilAducaoAdmDireito.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                            <td><input class="form-control" type="text" name="quadrilAducaoAdmEsquerdo"
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.quadrilAducaoAdmEsquerdo"
+                                                    #quadrilAducaoAdmEsquerdo="ngModel" required>
+                                                <div *ngIf="quadrilAducaoAdmEsquerdo.invalid && quadrilAducaoAdmEsquerdo.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Abdução</td>
+                                            <td><input class="form-control" type="text" name="quadrilAbducaoVR"
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.quadrilAbducaoVR"
+                                                    #quadrilAbducaoVR="ngModel" required>
+                                                <div *ngIf="quadrilAbducaoVR.invalid && quadrilAbducaoVR.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                            <td><input class="form-control" type="text" name="quadrilAbducaoAdmDireito"
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.quadrilAbducaoAdmDireito"
+                                                    #quadrilAbducaoAdmDireito="ngModel" required>
+                                                <div *ngIf="quadrilAbducaoAdmDireito.invalid && quadrilAbducaoAdmDireito.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                            <td><input class="form-control" type="text" name="quadrilAbducaoAdmEsquerdo"
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.quadrilAbducaoAdmEsquerdo"
+                                                    #quadrilAbducaoAdmEsquerdo="ngModel" required>
+                                                <div *ngIf="quadrilAbducaoAdmEsquerdo.invalid && quadrilAbducaoAdmEsquerdo.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Rot. Interna</td>
+                                            <td><input class="form-control" type="text" name="quadrilRotInternaVR"
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.quadrilRotInternaVR"
+                                                    #quadrilRotInternaVR="ngModel" required>
+                                                <div *ngIf="quadrilRotInternaVR.invalid && quadrilRotInternaVR.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                            <td><input class="form-control" type="text"
+                                                    name="quadrilRotInternaAdmDireito"
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.quadrilRotInternaAdmDireito"
+                                                    #quadrilRotInternaAdmDireito="ngModel" required>
+                                                <div *ngIf="quadrilRotInternaAdmDireito.invalid && quadrilRotInternaAdmDireito.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                            <td><input class="form-control" type="text"
+                                                    name="quadrilRotInternaAdmEsquerdo"
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.quadrilRotInternaAdmEsquerdo"
+                                                    #quadrilRotInternaAdmEsquerdo="ngModel" required>
+                                                <div *ngIf="quadrilRotInternaAdmEsquerdo.invalid && quadrilRotInternaAdmEsquerdo.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Rot. Externa</td>
+                                            <td><input class="form-control" type="text" name="quadrilRotExternaVR"
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.quadrilRotExternaVR"
+                                                    #quadrilRotExternaVR="ngModel" required>
+                                                <div *ngIf="quadrilRotExternaVR.invalid && quadrilRotExternaVR.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                            <td><input class="form-control" type="text"
+                                                    name="quadrilRotExternaAdmDireito"
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.quadrilRotExternaAdmDireito"
+                                                    #quadrilRotExternaAdmDireito="ngModel" required>
+                                                <div *ngIf="quadrilRotExternaAdmDireito.invalid && quadrilRotExternaAdmDireito.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                            <td><input class="form-control" type="text"
+                                                    name="quadrilRotExternaAdmEsquerdo"
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.quadrilRotExternaAdmEsquerdo"
+                                                    #quadrilRotExternaAdmEsquerdo="ngModel" required>
+                                                <div *ngIf="quadrilRotExternaAdmEsquerdo.invalid && quadrilRotExternaAdmEsquerdo.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td rowspan="2">Joelho</td>
+                                            <td>Flexão</td>
+                                            <td><input class="form-control" type="text" name="joelhoFlexaoVR"
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.joelhoFlexaoVR"
+                                                    #joelhoFlexaoVR="ngModel" required>
+                                                <div *ngIf="joelhoFlexaoVR.invalid && joelhoFlexaoVR.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                            <td><input class="form-control" type="text" name="joelhoFlexaoAdmDireito"
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.joelhoFlexaoAdmDireito"
+                                                    #joelhoFlexaoAdmDireito="ngModel" required>
+                                                <div *ngIf="joelhoFlexaoAdmDireito.invalid && joelhoFlexaoAdmDireito.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                            <td><input class="form-control" type="text" name="joelhoFlexaoAdmEsquerdo"
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.joelhoFlexaoAdmEsquerdo"
+                                                    #joelhoFlexaoAdmEsquerdo="ngModel" required>
+                                                <div *ngIf="joelhoFlexaoAdmEsquerdo.invalid && joelhoFlexaoAdmEsquerdo.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Extensão</td>
+                                            <td><input class="form-control" type="text" name="joelhoExtensaoVR"
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.joelhoExtensaoVR"
+                                                    #joelhoExtensaoVR="ngModel" required>
+                                                <div *ngIf="joelhoExtensaoVR.invalid && joelhoExtensaoVR.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                            <td><input class="form-control" type="text" name="joelhoExtensaoAdmDireito"
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.joelhoExtensaoAdmDireito"
+                                                    #joelhoExtensaoAdmDireito="ngModel" required>
+                                                <div *ngIf="joelhoExtensaoAdmDireito.invalid && joelhoExtensaoAdmDireito.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                            <td><input class="form-control" type="text" name="joelhoExtensaoAdmEsquerdo"
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.joelhoExtensaoAdmEsquerdo"
+                                                    #joelhoExtensaoAdmEsquerdo="ngModel" required>
+                                                <div *ngIf="joelhoExtensaoAdmEsquerdo.invalid && joelhoExtensaoAdmEsquerdo.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td rowspan="4">Tornozelo</td>
+                                            <td>Eversão</td>
+                                            <td><input class="form-control" type="text" name="tornozeloEversaoVR"
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.tornozeloEversaoVR"
+                                                    #tornozeloEversaoVR="ngModel" required>
+                                                <div *ngIf="tornozeloEversaoVR.invalid && tornozeloEversaoVR.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                            <td><input class="form-control" type="text"
+                                                    name="tornozeloEversaoAdmDireito"
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.tornozeloEversaoAdmDireito"
+                                                    #tornozeloEversaoAdmDireito="ngModel" required>
+                                                <div *ngIf="tornozeloEversaoAdmDireito.invalid && tornozeloEversaoAdmDireito.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                            <td><input class="form-control" type="text"
+                                                    name="tornozeloEversaoAdmEsquerdo"
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.tornozeloEversaoAdmEsquerdo"
+                                                    #tornozeloEversaoAdmEsquerdo="ngModel" required>
+                                                <div *ngIf="tornozeloEversaoAdmEsquerdo.invalid && tornozeloEversaoAdmEsquerdo.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Dorsiflexão</td>
+                                            <td><input class="form-control" type="text" name="tornozeloDorsiflexaoVR"
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.tornozeloDorsiflexaoVR"
+                                                    #tornozeloDorsiflexaoVR="ngModel" required>
+                                                <div *ngIf="tornozeloDorsiflexaoVR.invalid && tornozeloDorsiflexaoVR.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                            <td><input class="form-control" type="text"
+                                                    name="tornozeloDorsiflexaoAdmDireito"
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.tornozeloDorsiflexaoAdmDireito"
+                                                    #tornozeloDorsiflexaoAdmDireito="ngModel" required>
+                                                <div *ngIf="tornozeloDorsiflexaoAdmDireito.invalid && tornozeloDorsiflexaoAdmDireito.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                            <td><input class="form-control" type="text"
+                                                    name="tornozeloDorsiflexaoAdmEsquerdo"
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.tornozeloDorsiflexaoAdmEsquerdo"
+                                                    #tornozeloDorsiflexaoAdmEsquerdo="ngModel" required>
+                                                <div *ngIf="tornozeloDorsiflexaoAdmEsquerdo.invalid && tornozeloDorsiflexaoAdmEsquerdo.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Flexão Plantar</td>
+                                            <td><input class="form-control" type="text" name="tornozeloFlexaoPlantarVR"
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.tornozeloFlexaoPlantarVR"
+                                                    #tornozeloFlexaoPlantarVR="ngModel" required>
+                                                <div *ngIf="tornozeloFlexaoPlantarVR.invalid && tornozeloFlexaoPlantarVR.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                            <td><input class="form-control" type="text"
+                                                    name="tornozeloFlexaoPlantarAdmDireito"
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.tornozeloFlexaoPlantarAdmDireito"
+                                                    #tornozeloFlexaoPlantarAdmDireito="ngModel" required>
+                                                <div *ngIf="tornozeloFlexaoPlantarAdmDireito.invalid && tornozeloFlexaoPlantarAdmDireito.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                            <td><input class="form-control" type="text"
+                                                    name="tornozeloFlexaoPlantarAdmEsquerdo"
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.tornozeloFlexaoPlantarAdmEsquerdo"
+                                                    #tornozeloFlexaoPlantarAdmEsquerdo="ngModel" required>
+                                                <div *ngIf="tornozeloFlexaoPlantarAdmEsquerdo.invalid && tornozeloFlexaoPlantarAdmEsquerdo.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Inversão</td>
+                                            <td><input class="form-control" type="text" name="tornozeloInversaoVR"
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.tornozeloInversaoVR"
+                                                    #tornozeloInversaoVR="ngModel" required>
+                                                <div *ngIf="tornozeloInversaoVR.invalid && tornozeloInversaoVR.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                            <td><input class="form-control" type="text"
+                                                    name="tornozeloInversaoAdmDireito"
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.tornozeloInversaoAdmDireito"
+                                                    #tornozeloInversaoAdmDireito="ngModel" required>
+                                                <div *ngIf="tornozeloInversaoAdmDireito.invalid && tornozeloInversaoAdmDireito.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                            <td><input class="form-control" type="text"
+                                                    name="tornozeloInversaoAdmEsquerdo"
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.tornozeloInversaoAdmEsquerdo"
+                                                    #tornozeloInversaoAdmEsquerdo="ngModel" required>
+                                                <div *ngIf="tornozeloInversaoAdmEsquerdo.invalid && tornozeloInversaoAdmEsquerdo.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                </fieldset>
+            </mat-tab>
+            <mat-tab label="Quedas">
+                <fieldset class="border p-4">
+                    <div class="container mt-2 ">
+                        <h4 class="w-auto">Avaliação Fisioterapeuta</h4>
+                        <div class="row g-3">
+                            <div class="col-md-12">
+                                <h5>Quedas:</h5>
+                            </div>
+
+                            <div class="col-md-12">
+                                <label>Tempo</label>
+                                <input type="text" class="form-control" name="tempoQuedas"
+                                    [(ngModel)]="ProntuarioFisioterapeuta.tempoQuedas"
+                                    #tornozeloInversaoAdmEsquerdo="ngModel" required>
+                                <div *ngIf="tornozeloInversaoAdmEsquerdo.invalid && tornozeloInversaoAdmEsquerdo.touched"
+                                    class="text-danger">O campo é obrigatório.
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <label>Frequência</label>
+                                <input type="text" class="form-control" name="frequenciaQuedas"
+                                    [(ngModel)]="ProntuarioFisioterapeuta.frequenciaQuedas"
+                                    #tornozeloInversaoAdmEsquerdo="ngModel" required>
+                                <div *ngIf="tornozeloInversaoAdmEsquerdo.invalid && tornozeloInversaoAdmEsquerdo.touched"
+                                    class="text-danger">O campo é obrigatório.
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <label>Local</label>
+                                <input type="text" class="form-control" name="localQuedas"
+                                    [(ngModel)]="ProntuarioFisioterapeuta.localQuedas"
+                                    #tornozeloInversaoAdmEsquerdo="ngModel" required>
+                                <div *ngIf="tornozeloInversaoAdmEsquerdo.invalid && tornozeloInversaoAdmEsquerdo.touched"
+                                    class="text-danger">O campo é obrigatório.
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </fieldset>
+            </mat-tab>
+            <mat-tab label="Sistema Neurológico">
+                <fieldset class="border p-4">
+                    <div class="container mt-2 ">
+                        <h4 class="w-auto">Avaliação Fisioterapeuta</h4>
+                        <div class="row g-3">
+                            <div class="col-md-12">
+                                <h5>Avaliação do Sistema Neurológico</h5>
+                            </div>
+
+                            <div class="col-md-12">
+                                <h6 for="inputSex" class="form-label">Reflexo</h6><br />
+                                <div class="form-check form-check-inline">
+                                    <label>
+                                        <input class="form-check-input radio" type="radio" name="reflexo"
+                                            value="Biciptal" [(ngModel)]="ProntuarioFisioterapeuta.reflexo"
+                                            #reflexo="ngModel" required /> Biciptal
+                                    </label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <label>
+                                        <input class="form-check-input radio" type="radio" name="reflexo"
+                                            value="Triciptal" [(ngModel)]="ProntuarioFisioterapeuta.reflexo"
+                                            #reflexo="ngModel" required />
+                                        Triciptal
+                                    </label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <label>
+                                        <input class="form-check-input radio" type="radio" name="reflexo"
+                                            value="Patelar" [(ngModel)]="ProntuarioFisioterapeuta.reflexo"
+                                            #reflexo="ngModel" required /> Patelar
+                                    </label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <label>
+                                        <input class="form-check-input radio" type="radio" name="reflexo"
+                                            value="Aquileu" [(ngModel)]="ProntuarioFisioterapeuta.reflexo"
+                                            #reflexo="ngModel" required /> Aquileu
+                                    </label>
+                                </div>
+                                <div *ngIf="reflexo.invalid && reflexo.touched" class="text-danger">O campo é
+                                    obrigatório.
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <label>Equílibrio Corporal</label><br>
+                                <label>Sentado</label>
+                                <input class="form-control" type="text" name="equilibrioSentado"
+                                    [(ngModel)]="ProntuarioFisioterapeuta.equilibrioSentado"
+                                    #equilibrioSentado="ngModel" required>
+                                <div *ngIf="equilibrioSentado.invalid && equilibrioSentado.touched" class="text-danger">
+                                    O campo é obrigatório.
+                                </div>
+                                <label>Em pé</label>
+                                <input class="form-control" type="text" name="equilibrioEmPe"
+                                    [(ngModel)]="ProntuarioFisioterapeuta.equilibrioEmPe" #equilibrioEmPe="ngModel"
+                                    required>
+                                <div *ngIf="equilibrioEmPe.invalid && equilibrioEmPe.touched" class="text-danger">O
+                                    campo é obrigatório.
+                                </div>
+                                <label>Sinal de Rosemberg</label>
+                                <input class="form-control" type="text" name="equilibrioSinalRosemberg"
+                                    [(ngModel)]="ProntuarioFisioterapeuta.equilibrioSinalRosemberg"
+                                    #equilibrioSinalRosemberg="ngModel" required>
+                                <div *ngIf="equilibrioSinalRosemberg.invalid && equilibrioSinalRosemberg.touched"
+                                    class="text-danger">O campo é obrigatório.
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <h5>Atividade de Vida Diária</h5>
+                                <textarea class="form-control" name="atividadeVidaDiaria" id="" cols="10"
+                                    [(ngModel)]="ProntuarioFisioterapeuta.atividadeVidaDiaria" rows="5"
+                                    #atividadeVidaDiaria="ngModel" required></textarea>
+                                <div *ngIf="atividadeVidaDiaria.invalid && atividadeVidaDiaria.touched"
+                                    class="text-danger">O campo é obrigatório.
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <h5>Escala Visual de Dor</h5>
+                                <h6>Digite de 0 a 10</h6>
+                                <div class="example-label-container">
+                                    <input class="form-control" type="text" name="escalaDor"
+                                        [(ngModel)]="ProntuarioFisioterapeuta.escalaDor" #escalaDor="ngModel" required>
+                                    <div *ngIf="escalaDor.invalid && escalaDor.touched" class="text-danger">O campo é
+                                        obrigatório.
+                                    </div>
+                                </div>
+
+                                <label>Região da Dor</label>
+                                <input class="form-control" type="text" name="regiaoDor"
+                                    [(ngModel)]="ProntuarioFisioterapeuta.regiaoDor" #regiaoDor="ngModel" required>
+                                <div *ngIf="regiaoDor.invalid && regiaoDor.touched" class="text-danger">O campo é
+                                    obrigatório.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </mat-tab>
+            <mat-tab label="Postural">
+                <fieldset class="border p-4">
+                    <div class="container mt-2 ">
+                        <h4 class="w-auto">Avaliação Fisioterapeuta</h4>
+                        <div class="row g-3">
+                            <div class="col-md-12">
+                                <h5>Avaliação Postural</h5>
+                            </div>
+
+                            <div class="col-md-12">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Região</th>
+                                            <th>Sagital</th>
+                                            <th>Frontal</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Pé</td>
+                                            <td><input class="form-control" type="text" name="peSagital" id=""
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.peSagital"
+                                                    #peSagital="ngModel" required>
+                                                <div *ngIf="peSagital.invalid && peSagital.touched" class="text-danger">
+                                                    O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                            <td><input class="form-control" type="text" name="peFrontal" id=""
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.peFrontal"
+                                                    #peFrontal="ngModel" required>
+                                                <div *ngIf="peFrontal.invalid && peFrontal.touched" class="text-danger">
+                                                    O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Joelho</td>
+                                            <td><input class="form-control" type="text" name="joelhoSagital" id=""
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.joelhoSagital"
+                                                    #joelhoSagital="ngModel" required>
+                                                <div *ngIf="joelhoSagital.invalid && joelhoSagital.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                            <td><input class="form-control" type="text" name="joelhoFrontal" id=""
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.joelhoFrontal"
+                                                    #joelhoFrontal="ngModel" required>
+                                                <div *ngIf="joelhoFrontal.invalid && joelhoFrontal.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Cintura Pélvica</td>
+                                            <td><input class="form-control" type="text" name="cinturaPelvicaSagital"
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.cinturaPelvicaSagital" id=""
+                                                    #cinturaPelvicaSagital="ngModel" required>
+                                                <div *ngIf="cinturaPelvicaSagital.invalid && cinturaPelvicaSagital.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                            <td><input class="form-control" type="text" name="cinturaPelvicaFrontal"
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.cinturaPelvicaFrontal" id=""
+                                                    #cinturaPelvicaFrontal="ngModel" required>
+                                                <div *ngIf="cinturaPelvicaFrontal.invalid && cinturaPelvicaFrontal.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Coluna</td>
+                                            <td><input class="form-control" type="text" name="colunaSagital" id=""
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.colunaSagital"
+                                                    #colunaSagital="ngModel" required>
+                                                <div *ngIf="colunaSagital.invalid && colunaSagital.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                            <td><input class="form-control" type="text" name="colunaFrontal" id=""
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.colunaFrontal"
+                                                    #colunaFrontal="ngModel" required>
+                                                <div *ngIf="colunaFrontal.invalid && colunaFrontal.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Cintura escapular</td>
+                                            <td><input class="form-control" type="text" name="cinturaEscapularSagital"
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.cinturaEscapularSagital"
+                                                    #cinturaEscapularSagital="ngModel" required id="">
+                                                <div *ngIf="cinturaEscapularSagital.invalid && cinturaEscapularSagital.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                            <td><input class="form-control" type="text" name="cinturaEscapularFrontal"
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.cinturaEscapularFrontal"
+                                                    #cinturaEscapularFrontal="ngModel" required id="">
+                                                <div *ngIf="cinturaEscapularFrontal.invalid && cinturaEscapularFrontal.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Cabeça</td>
+                                            <td><input class="form-control" type="text" name="cabecaSagital" id=""
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.cabecaSagital"
+                                                    #cabecaSagital="ngModel" required>
+                                                <div *ngIf="cabecaSagital.invalid && cabecaSagital.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                            <td><input class="form-control" type="text" name="cabecaFrontal" id=""
+                                                    [(ngModel)]="ProntuarioFisioterapeuta.cabecaFrontal"
+                                                    #cabecaFrontal="ngModel" required>
+                                                <div *ngIf="cabecaFrontal.invalid && cabecaFrontal.touched"
+                                                    class="text-danger">O campo é obrigatório.
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="textSection">Avaliação da Marcha:</label>
+                                <textarea rows="4" class="form-control " name="avaliacaoMarcha"
+                                    [(ngModel)]="ProntuarioFisioterapeuta.avaliacaoMarcha" #avaliacaoMarcha="ngModel"
+                                    required></textarea>
+                                <div *ngIf="avaliacaoMarcha.invalid && avaliacaoMarcha.touched" class="text-danger">O
+                                    campo é obrigatório.
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="textSection">Observações:</label>
+                                <textarea rows="4" class="form-control " name="observacoes"
+                                    [(ngModel)]="ProntuarioFisioterapeuta.observacoes" #observacoes="ngModel"
+                                    required></textarea>
+                                <div *ngIf="observacoes.invalid && observacoes.touched" class="text-danger">O campo é
+                                    obrigatório.
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="textSection">Diagnóstico Funcional:</label>
+                                <textarea rows="6" class="form-control " name="diagnosticoFuncional"
+                                    [(ngModel)]="ProntuarioFisioterapeuta.diagnosticoFuncional"
+                                    #diagnosticoFuncional="ngModel" required></textarea>
+                                <div *ngIf="diagnosticoFuncional.invalid && diagnosticoFuncional.touched"
+                                    class="text-danger">O campo é obrigatório.
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="textSection">Objetivos Fisioterápicos:</label>
+                                <textarea rows="6" class="form-control " name="objetivosFisioterapicos"
+                                    [(ngModel)]="ProntuarioFisioterapeuta.objetivosFisioterapicos"
+                                    #objetivosFisioterapicos="ngModel" required></textarea>
+                                <div *ngIf="objetivosFisioterapicos.invalid && objetivosFisioterapicos.touched"
+                                    class="text-danger">O campo é obrigatório.
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <button type="submit" class="btn btn-primary">
+                                    Enviar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </mat-tab>
+        </mat-tab-group>
+    </form>
+</div>

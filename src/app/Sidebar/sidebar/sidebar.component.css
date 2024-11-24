@@ -1,0 +1,60 @@
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 250px;
+  height: 100%;
+  background-color: #d1d6db;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+  padding: 20px;
+}
+
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-menu li {
+  margin-bottom: 15px;
+}
+
+.sidebar-link {
+  text-decoration: none;
+  color: #333;
+  font-size: 16px;
+  transition: color 0.3s, background-color 0.3s;
+  padding: 10px;
+  display: block;
+  border-radius: 4px;
+}
+
+.sidebar-link:hover {
+  background-color: #e9ecef;
+  color: #7c7d7e;
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 200px;
+  }
+
+  .sidebar-link {
+    font-size: 14px;
+  }
+}
+header{
+  font-size: 20px;
+  line-height: 52px;
+  text-align: center;
+}
+
+.btn {
+  margin-top: auto; /* Empurra o botão para o fundo da sidebar */
+
+}
+
+

@@ -1,0 +1,151 @@
+h4 {
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: left;
+}
+.btn {
+  text-align: center;
+  border: 0;
+}
+.enviar {
+  width: 550px;
+  margin-right: 1%;
+}
+.limpar {
+  width: 550px;
+}
+
+label,
+input {
+  font-size: 17px;
+}
+
+legend {
+  padding: 0 10px;
+  font-weight: bold;
+  font-family: "Times New Roman", Times, serif;
+}
+
+.sidebar .nav-link,
+.sidebar .dropdown-item {
+  color: #ffffff;
+}
+.sidebar .dropdown-toggle::after {
+  color: #ffffff;
+}
+.content {
+  margin-left: 170px;
+  margin-right: 160px;
+  padding: 25px;
+}
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+}
+
+.braden-scale {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.braden-scale th,
+.braden-scale td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.braden-scale th {
+  background-color: #f2f2f2;
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+thead th {
+  background-color: #333;
+  color: white;
+  padding: 10px;
+}
+
+tbody td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: center;
+}
+
+input[type="text"],
+input[type="date"],
+input[type="time"],
+textarea {
+  width: 100%;
+  padding: 5px;
+  box-sizing: border-box;
+}
+
+textarea {
+  resize: vertical;
+}
+
+button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #333;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+button:hover {
+  background-color: #555;
+}
+
+.error-card {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1050; /* Garantir que fique acima de outros elementos */
+  width: 300px; /* Largura ajustável */
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Sombra para destaque */
+  animation: fadeIn 0.3s ease-out; /* Animação suave ao aparecer */
+}
+
+.success-card {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1050; /* Garantir que fique acima de outros elementos */
+  width: 300px; /* Largura ajustável */
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Sombra para destaque */
+  animation: fadeIn 0.3s ease-out; /* Animação suave ao aparecer */
+}
+
+/* Animação de entrada suave */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -40%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}

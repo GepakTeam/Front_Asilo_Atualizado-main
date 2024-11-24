@@ -1,0 +1,246 @@
+<app-navbar></app-navbar>
+
+<div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" style="margin: 20px;"
+    class="table-responsive caption-top">
+    <caption>Lista Individual</caption>
+    <mat-form-field fxFlex="100%" fxFlex.lt-md="90%" fxFlex.xs="100%">
+        <mat-label>Filter</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Digite para filtrar" #input>
+    </mat-form-field>
+
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+        <ng-container matColumnDef="nome">
+            <th mat-header-cell *matHeaderCellDef> Nome </th>
+            <td mat-cell *matCellDef="let ind"> {{ind.nome}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="dataNascimento">
+            <th mat-header-cell *matHeaderCellDef> Data de Nascimento </th>
+            <td mat-cell *matCellDef="let ind"> {{ind.dataNascimento }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="idade">
+            <th mat-header-cell *matHeaderCellDef> Idade </th>
+            <td mat-cell *matCellDef="let ind"> {{ind.idade}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="localNascimento">
+            <th mat-header-cell *matHeaderCellDef> Local de Nascimento </th>
+            <td mat-cell *matCellDef="let ind"> {{ind.localNascimento}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="sexo">
+            <th mat-header-cell *matHeaderCellDef> Sexo </th>
+            <td mat-cell *matCellDef="let ind"> {{ind.sexo}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="raca">
+            <th mat-header-cell *matHeaderCellDef> Raça </th>
+            <td mat-cell *matCellDef="let ind"> {{ind.raca}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="telefone">
+            <th mat-header-cell *matHeaderCellDef> Telefone </th>
+            <td mat-cell *matCellDef="let ind"> {{ind.telefone}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="nomeMae">
+            <th mat-header-cell *matHeaderCellDef> Nome da Mãe </th>
+            <td mat-cell *matCellDef="let ind"> {{ind.nomeMae}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="nomePai">
+            <th mat-header-cell *matHeaderCellDef> Nome do Pai </th>
+            <td mat-cell *matCellDef="let ind"> {{ind.nomePai }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="nomeResponsavel">
+            <th mat-header-cell *matHeaderCellDef> Nome do Responsável </th>
+            <td mat-cell *matCellDef="let ind"> {{ind.nomeResponsavel}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="endereco">
+            <th mat-header-cell *matHeaderCellDef> Endereço </th>
+            <td mat-cell *matCellDef="let ind"> {{ind.endereco}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="cep">
+            <th mat-header-cell *matHeaderCellDef> CEP </th>
+            <td mat-cell *matCellDef="let ind"> {{ind.cep}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="pontoReferencia">
+            <th mat-header-cell *matHeaderCellDef> Ponto de Referência </th>
+            <td mat-cell *matCellDef="let ind"> {{ind.pontoReferencia}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="rg">
+            <th mat-header-cell *matHeaderCellDef> RG </th>
+            <td mat-cell *matCellDef="let ind"> {{ind.rg}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="cpf">
+            <th mat-header-cell *matHeaderCellDef> CPF </th>
+            <td mat-cell *matCellDef="let ind"> {{ind.cpf }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="carteiraTrabalho">
+            <th mat-header-cell *matHeaderCellDef> Carteira de Trabalho </th>
+            <td mat-cell *matCellDef="let ind"> {{ind.carteiraTrabalho}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="tituloEleitoral">
+            <th mat-header-cell *matHeaderCellDef> Título Eleitoral </th>
+            <td mat-cell *matCellDef="let ind"> {{ind.tituloEleitoral}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="certidaoNascimento">
+            <th mat-header-cell *matHeaderCellDef> Certidão de Nascimento </th>
+            <td mat-cell *matCellDef="let ind"> {{ind.certidaoNascimento}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="relacaoAmigavel">
+            <th mat-header-cell *matHeaderCellDef> Relação Familiar - Amigável </th>
+            <td mat-cell *matCellDef="let ind"> {{ind.relacaoAmigavel}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="relacaoDistanciados">
+            <th mat-header-cell *matHeaderCellDef> Relação Familiar - Distanciados </th>
+            <td mat-cell *matCellDef="let ind"> {{ind.relacaoDistanciados}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="relacaoConflituosa">
+            <th mat-header-cell *matHeaderCellDef> Relação Familiar - Conflituosa </th>
+            <td mat-cell *matCellDef="let ind"> {{ind.relacaoConflituosa }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="quemResideCasa">
+            <th mat-header-cell *matHeaderCellDef> Residência </th>
+            <td mat-cell *matCellDef="let ind"> {{ind.quemResideCasa}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="filho">
+            <th mat-header-cell *matHeaderCellDef> Filhos </th>
+            <td mat-cell *matCellDef="let ind"> {{ind.filho}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="qntFilho">
+            <th mat-header-cell *matHeaderCellDef> Quantos Filhos </th>
+            <td mat-cell *matCellDef="let ind"> {{ind.qntFilho}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="comQuemMoraFilhos">
+            <th mat-header-cell *matHeaderCellDef> Com Quem Moram os Filhos </th>
+            <td mat-cell *matCellDef="let ind"> {{ind.comQuemMoraFilhos}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="moradia">
+            <th mat-header-cell *matHeaderCellDef> Condições Habitacionais </th>
+            <td mat-cell *matCellDef="let ind"> {{ind.moradia}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="doenca">
+            <th mat-header-cell *matHeaderCellDef> Doenças </th>
+            <td mat-cell *matCellDef="let ind"> {{ind.doenca}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="deficiencia">
+            <th mat-header-cell *matHeaderCellDef> Deficiência </th>
+            <td mat-cell *matCellDef="let ind"> {{ind.deficiencia}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="quaisDeficiencias">
+            <th mat-header-cell *matHeaderCellDef> Qual Deficiência </th>
+            <td mat-cell *matCellDef="let ind"> {{ind.quaisDeficiencias}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="saude">
+            <th mat-header-cell *matHeaderCellDef> Saúde </th>
+            <td mat-cell *matCellDef="let ind"> {{ind.saude}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="atividadesLazer">
+            <th mat-header-cell *matHeaderCellDef> Atividades de Lazer </th>
+            <td mat-cell *matCellDef="let ind"> {{ind.atividadesLazer }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="parceiros">
+            <th mat-header-cell *matHeaderCellDef> Tem Parceira(o) </th>
+            <td mat-cell *matCellDef="let ind"> {{ind.parceiros}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="acompanhamento">
+            <th mat-header-cell *matHeaderCellDef> Acompanhamento Médico </th>
+            <td mat-cell *matCellDef="let ind"> {{ind.acompanhamento}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="qualMedicacao">
+            <th mat-header-cell *matHeaderCellDef> Qual Medicação </th>
+            <td mat-cell *matCellDef="let ind"> {{ind.qualMedicacao}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="planoSaude">
+            <th mat-header-cell *matHeaderCellDef> Plano de Saúde </th>
+            <td mat-cell *matCellDef="let ind"> {{ind.planoSaude}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="qualPlanoSaude">
+            <th mat-header-cell *matHeaderCellDef> Qual o Plano de Saúde </th>
+            <td mat-cell *matCellDef="let ind"> {{ind.usoDroga}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="usoDroga">
+            <th mat-header-cell *matHeaderCellDef> Uso de Alguma Droga </th>
+            <td mat-cell *matCellDef="let ind"> {{ind.quaisDrogasUsou }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="quaisDrogasUsou">
+            <th mat-header-cell *matHeaderCellDef> Quais Drogas </th>
+            <td mat-cell *matCellDef="let ind"> {{ind.historicoUso}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="historicoUso">
+            <th mat-header-cell *matHeaderCellDef> Histórico de Uso </th>
+            <td mat-cell *matCellDef="let ind"> {{ind.historicoUso}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="atendimentoPsicologico">
+            <th mat-header-cell *matHeaderCellDef> Atendimento Psicológico </th>
+            <td mat-cell *matCellDef="let ind"> {{ind.atendimentoPsicologico}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="localAtendimentoPsicologico">
+            <th mat-header-cell *matHeaderCellDef> Local do Atendimento Psicológico </th>
+            <td mat-cell *matCellDef="let ind"> {{ind.localAtendimentoPsicologico}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="tratamentoPsiquiatrico">
+            <th mat-header-cell *matHeaderCellDef> Tratamento Psiquiátrico </th>
+            <td mat-cell *matCellDef="let ind"> {{ind.tratamentoPsiquiatrico}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="localTratamentoPsiquiatrico">
+            <th mat-header-cell *matHeaderCellDef> Local do Tratamento Psiquiátrico </th>
+            <td mat-cell *matCellDef="let ind"> {{ind.localTratamentoPsiquiatrico}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="tomaAlgumTipoMedicamento">
+            <th mat-header-cell *matHeaderCellDef>Toma Algum Tipo de Medicamento</th>
+            <td mat-cell *matCellDef="let ind"> {{ind.tomaAlgumTipoMedicamento }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="motivoEncaminhamentoPsicologico">
+            <th mat-header-cell *matHeaderCellDef> Motivo do Encaminhamento Psicológico </th>
+            <td mat-cell *matCellDef="let ind"> {{ind.motivoEncaminhamentoPsicologico}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        <!-- Linha mostrada quando não houver dados correspondentes ao filtro -->
+        <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="6">Nenhum dado correspondente ao filtro "{{input.value}}"</td>
+        </tr>
+    </table>
+</div>
